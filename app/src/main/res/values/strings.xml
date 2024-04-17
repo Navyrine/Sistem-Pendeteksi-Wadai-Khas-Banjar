@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Kacari</string>
+    <string name="unggah_gambar">Unggah Gambar</string>
+    <string name="pengantar">Unggah wadai khas Banjar Anda untuk mengetahui nama dan masa berlakunya</string>
+    <string name="upload_gambar">Unggah Gambar</string>
+    <string name="take_picture">Ambil Gambar</string>
+    <string name="title_name">Nama</string>
+    <string name="body_name_wadai">nama wadai</string>
+    <string name="title_expired">Masa Berlaku</string>
+    <string name="body_expired">24 jam pada suhu ruangan dan 6 hari  jika dimasukkan dalam kulkas</string>
+    <string name="title_about">Tentang</string>
+    <string name="body_about">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce odio sapien, posuere eget mauris ac, bibendum rutrum urna. Nulla facilisi. Nunc suscipit varius nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque at eros faucibus, vulputate urna nec, feugiat tortor. Mauris in quam ligula. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eget viverra lorem. Sed a gravida lorem. Donec tempus velit non sem vulputate venenatis. Nunc iaculis tempor pellentesque. Donec et sodales augue, eget mattis turpis. Morbi non neque ipsum. Nunc vel est pellentesque, placerat nunc in, consequat odio. Donec vel sem consectetur, rutrum tellus vitae, convallis nunc. Aenean eu tellus consectetur, ultricies eros non, pretium metus. Phasellus mollis diam sed auctor pellentesque. Aenean libero libero, rhoncus at vestibulum vel, pharetra sed nulla. Vivamus scelerisque ligula sed tortor tempus, ut accumsan justo fermentum. Nullam et odio sed mi iaculis egestas. Nullam at fringilla purus. Donec felis dui, iaculis vel purus id, facilisis mollis mi. Fusce rutrum justo ac tempus fermentum. Vivamus mollis augue magna, in mattis magna mollis id. Proin sollicitudin ultricies magna. Phasellus faucibus risus quam, sit amet egestas nibh fringilla et. Vestibulum efficitur libero dui, et mollis libero tempus nec. Duis quis magna ac metus sollicitudin congue sed vitae mi. Suspendisse tincidunt, lectus sed semper maximus, urna dolor porta massa, eu aliquam lacus orci congue ex.</string>
+</resources>
