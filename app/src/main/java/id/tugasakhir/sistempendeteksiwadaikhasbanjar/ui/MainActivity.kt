@@ -24,9 +24,10 @@ import java.nio.ByteOrder
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private var imageSize = 300
+    private var imageSize = 32
     private var predictName = ""
     private var expired = ""
+    private var teksSuhu = ""
     private var about = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,18 +78,17 @@ class MainActivity : AppCompatActivity() {
             bitmap = Bitmap.createScaledBitmap(bitmap, imageSize, imageSize, false)
             classificationImage(bitmap)
 
-            if (predictName == "Untuk-Untuk")
+            if (predictName == "Ipau")
             {
                 Toast.makeText(this, "Ini adalah $predictName", Toast.LENGTH_SHORT).show()
             }
-            else
-            {
-                intent.putExtra("imageBitmap", bitmap)
-                intent.putExtra("className", predictName)
-                intent.putExtra("expired", expired)
-                intent.putExtra("about", about)
-                startActivity(intent)
-            }
+            intent.putExtra("imageBitmap", bitmap)
+            intent.putExtra("className", predictName)
+            intent.putExtra("expired", expired)
+            intent.putExtra("about", about)
+            intent.putExtra("suhu", teksSuhu)
+            startActivity(intent)
+
         }
         else
         {
@@ -103,18 +103,18 @@ class MainActivity : AppCompatActivity() {
                     bitmap = Bitmap.createScaledBitmap(bitmap, imageSize, imageSize, false)
                     classificationImage(bitmap)
 
-                    if (predictName == "Banana")
+                    if (predictName == "Ipau")
                     {
                         Toast.makeText(this, "Ini adalah $predictName", Toast.LENGTH_SHORT).show()
                     }
-                    else
-                    {
-                        intent.putExtra("imageBitmap", bitmap)
-                        intent.putExtra("className", predictName)
-                        intent.putExtra("expired", expired)
-                        intent.putExtra("about", about)
-                        startActivity(intent)
-                    }
+
+                    intent.putExtra("imageBitmap", bitmap)
+                    intent.putExtra("className", predictName)
+                    intent.putExtra("expired", expired)
+                    intent.putExtra("about", about)
+                    intent.putExtra("suhu", teksSuhu)
+                    startActivity(intent)
+
                 }catch (e: IOException){
                     e.printStackTrace()
                 }
@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity() {
         val model = Model.newInstance(applicationContext)
 
         // Creates inputs for reference.
-        val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 300, 300, 3), DataType.FLOAT32)
+        val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 32, 32, 3), DataType.FLOAT32)
         val byteBuffer = ByteBuffer.allocateDirect(4 * imageSize * imageSize * 3)
         val value = IntArray(imageSize * imageSize)
         var pixel = 0
@@ -154,22 +154,16 @@ class MainActivity : AppCompatActivity() {
         var maxPos = 0
         var maxConfidence = 0f
         val classes = arrayOf(
-            "Kue Ape",
-            "Kue Bika Ambon",
-            "Kue Cenil",
-            "Kue Dadar Gulung",
-            "Kue Gethuk Lindri",
-            "Kue Kastengel",
-            "Kue Klepon",
-            "Kue Lapis",
-            "Kue Lemper",
-            "Kue Lumpur",
-            "Kue Nagasari",
-            "Kue Pastel",
-            "Kue Putri Salju",
-            "Kue Putu Ayu",
-            "Kue Risoles",
-            "Kue Serabi"
+            "Amparan Tatak",
+            "Bingka",
+            "Bingka Barandam",
+            "Hula Hula",
+            "Ipau",
+            "Kakaraban",
+            "Lapis India",
+            "Sarimuka",
+            "Talipuk",
+            "Untuk Untuk",
         )
         val intent = Intent(this@MainActivity, DetailDetectionActivity::class.java)
 
@@ -184,67 +178,44 @@ class MainActivity : AppCompatActivity() {
         predictName = classes[maxPos]
 
         when (predictName) {
-            "Kue Ape" -> {
+            "Amparan Tatak" -> {
                 expired = "1 Hari"
                 about = ""
             }
-            "Kue Bika Ambon" -> {
+            "Bingka" -> {
                 expired = "1 Hari"
                 about = "Buah Pisang"
             }
-            "Kue Cenil" -> {
+            "Bingka Barandam" -> {
                 expired = "1 Hari"
                 about = ""
             }
-            "Kue Dadar Gulung" -> {
+            "Hula Hula" -> {
                 expired = "1 Hari"
                 about = ""
             }
-            "Kue Gethuk Lindri" -> {
+            "Ipau" -> {
+                expired = "1 Hari"
+                about = ""
+                teksSuhu = "25 Celcius"
+            }
+            "Kakaraban" -> {
                 expired = "1 Hari"
                 about = ""
             }
-            "Kue Kastengel" -> {
+            "Lapis India" -> {
                 expired = "1 Hari"
                 about = ""
             }
-            "Kue Klepon" -> {
+            "Sarimuka" -> {
                 expired = "1 Hari"
                 about = ""
             }
-            "Kue Lapis" -> {
+            "Talipuk" -> {
                 expired = "1 Hari"
                 about = ""
             }
-            "Kue Lemper" -> {
-                expired = "1 Hari"
-                about = ""
-            }
-            "Kue Lumpur" -> {
-                expired = "1 Hari"
-                about = ""
-            }
-            "Kue Nagasari" -> {
-                expired = "1 Hari"
-                about = ""
-            }
-            "Kue Pastel" -> {
-                expired = "1 Hari"
-                about = ""
-            }
-            "Kue Putri Salju" -> {
-                expired = "1 Hari"
-                about = ""
-            }
-            "Kue Putu Ayu" -> {
-                expired = "1 Hari"
-                about = ""
-            }
-            "Kue Risoles" -> {
-                expired = "1 Hari"
-                about = ""
-            }
-            "Kue Serabi" -> {
+            "Untuk Untuk" -> {
                 expired = "1 Hari"
                 about = ""
             }

@@ -8,37 +8,14 @@
     android:background="@color/brown"
     tools:context=".ui.DetailDetectionActivity">
 
-    <Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/blue"
-        app:layout_constraintBottom_toTopOf="@+id/cardView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/baskervville_regular"
-            android:text="@string/app_name"
-            android:textColor="@color/brown"
-            android:textSize="48sp" />
-    </Toolbar>
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_detail_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="104dp"
-        android:layout_marginEnd="160dp"
-        android:backgroundTint="@color/brown"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="25dp"
+        app:cardElevation="20dp"
         app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,111 +24,161 @@
         <ImageView
             android:id="@+id/iv_detail_image"
             android:layout_width="match_parent"
-            android:layout_height="191dp"
+            android:layout_height="460dp"
             android:scaleType="centerCrop"
             android:src="@drawable/bingka_kentang2"
             tools:ignore="ContentDescription" />
 
+        <com.github.furkankaplan.fkblurview.FKBlurView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/ib_back"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_gravity="start"
+                android:background="@drawable/custom_button"
+                android:src="@drawable/ic_arrow_left" />
+        </com.github.furkankaplan.fkblurview.FKBlurView>
+
+        <com.github.furkankaplan.fkblurview.FKBlurView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/ib_instagram"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/custom_button"
+                android:src="@drawable/ic_instagram" />
+        </com.github.furkankaplan.fkblurview.FKBlurView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="22dp"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="#301D1D1D"
+            app:strokeWidth="0dp"
+            app:cardCornerRadius="15dp">
+
+            <com.github.furkankaplan.fkblurview.FKBlurView
+                android:id="@+id/bv_body_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+                <TextView
+                    android:id="@+id/tv_body_name"
+                    android:layout_width="300dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/proxima_nova_semibold"
+                    android:justificationMode="inter_word"
+                    android:padding="14dp"
+                    android:text="@string/body_name_wadai"
+                    android:textColor="@color/white"
+                    android:textSize="24sp" />
+        </com.google.android.material.card.MaterialCardView>
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/tv_title_name"
-        android:layout_width="105dp"
+        android:id="@+id/tv_title_about"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="104dp"
-        android:fontFamily="@font/proxima_nova_thin"
-        android:text="@string/title_name"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/cv_detail_image"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_body_name"
-        android:layout_width="105dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="27dp"
         android:fontFamily="@font/proxima_nova_semibold"
-        android:justificationMode="inter_word"
-        android:text="@string/body_name_wadai"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/cv_detail_image"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title_name" />
+        android:text="@string/title_about"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="@+id/cv_detail_image"
+        app:layout_constraintTop_toBottomOf="@+id/cv_detail_image" />
 
-    <TextView
-        android:id="@+id/tv_title_expired"
-        android:layout_width="105dp"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="13dp"
-        android:fontFamily="@font/proxima_nova_thin"
-        android:text="@string/title_expired"
-        android:textSize="12sp"
+        android:layout_marginTop="28dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/cv_detail_image"
-        app:layout_constraintTop_toBottomOf="@+id/tv_body_name" />
+        app:layout_constraintStart_toStartOf="@+id/tv_title_about"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_about"
+        app:srcCompat="@drawable/ic_clock"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/tv_body_expired"
         android:layout_width="105dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginStart="10dp"
         android:fontFamily="@font/proxima_nova_semibold"
         android:justificationMode="inter_word"
         android:text="@string/body_expired"
-        android:textSize="14sp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_about"
+        app:layout_constraintVertical_bias="1.073" />
+
+    <ImageView
+        android:id="@+id/iv_temperature"
+        android:layout_width="24dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="24.6dp"
+        android:layout_marginEnd="176dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/cv_detail_image"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title_expired" />
+        app:layout_constraintStart_toEndOf="@+id/tv_body_expired"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_about"
+        app:srcCompat="@drawable/ic_temperature"
+        tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/tv_title_about"
-        android:layout_width="347dp"
+        android:id="@+id/tv_body_temperature"
+        android:layout_width="105dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="4dp"
         android:fontFamily="@font/proxima_nova_semibold"
-        android:text="@string/title_about"
+        android:justificationMode="inter_word"
+        android:text="@string/suhu"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_temperature"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cv_detail_image" />
-
-    <ScrollView
-        android:id="@+id/scroll_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:scrollbars="none"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_temperature"
         app:layout_constraintTop_toBottomOf="@+id/tv_title_about"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.99" />
 
-        <TextView
-            android:id="@+id/tv_body_about"
-            android:layout_width="347dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="31dp"
-            android:fontFamily="@font/proxima_nova_light"
-            android:justificationMode="inter_word"
-            android:text="@string/body_about"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title_about" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="580dp" />
 
-    </ScrollView>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="598dp" />
+
+    <TextView
+        android:id="@+id/tv_body_about"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/proxima_nova_regular"
+        android:justificationMode="inter_word"
+        android:text="@string/body_about"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_title_about"
+        app:layout_constraintStart_toStartOf="@+id/tv_title_about"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

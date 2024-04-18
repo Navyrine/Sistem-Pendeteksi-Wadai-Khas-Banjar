@@ -26,18 +26,21 @@ class DetailDetectionActivity : AppCompatActivity() {
 
         window.navigationBarColor = resources.getColor(R.color.blue)
         window.statusBarColor = resources.getColor(R.color.blue)
+        binding.bvBodyName?.setBlur(this, binding.bvBodyName, 100)
 
         val getImageBitmap: Bitmap? = intent.getParcelableExtra("imageBitmap")
         val getNameImage = intent.getStringExtra("className")
         val getExpiredImage = intent.getStringExtra("expired")
         val getAboutImage = intent.getStringExtra("about")
+        val getTemperature = intent.getStringExtra("suhu")
 
         if (getImageBitmap != null)
         {
             binding.ivDetailImage.setImageBitmap(getImageBitmap)
             binding.tvBodyName.text = getNameImage
             binding.tvBodyExpired.text = getExpiredImage
-            binding.tvBodyAbout.text = getAboutImage
+            binding.tvBodyTemperature?.text = getTemperature
+//            binding.tvBodyAbout.text = getAboutImage
         }
     }
 }
