@@ -27,8 +27,9 @@ class MainActivity : AppCompatActivity() {
     private var imageSize = 32
     private var predictName = ""
     private var expired = ""
-    private var teksSuhu = ""
+    private var suhu = ""
     private var about = ""
+    private var linkPostIg = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,15 +79,12 @@ class MainActivity : AppCompatActivity() {
             bitmap = Bitmap.createScaledBitmap(bitmap, imageSize, imageSize, false)
             classificationImage(bitmap)
 
-            if (predictName == "Ipau")
-            {
-                Toast.makeText(this, "Ini adalah $predictName", Toast.LENGTH_SHORT).show()
-            }
             intent.putExtra("imageBitmap", bitmap)
             intent.putExtra("className", predictName)
             intent.putExtra("expired", expired)
             intent.putExtra("about", about)
-            intent.putExtra("suhu", teksSuhu)
+            intent.putExtra("suhu", suhu)
+            intent.putExtra("linkPostIg", linkPostIg)
             startActivity(intent)
 
         }
@@ -103,16 +101,12 @@ class MainActivity : AppCompatActivity() {
                     bitmap = Bitmap.createScaledBitmap(bitmap, imageSize, imageSize, false)
                     classificationImage(bitmap)
 
-                    if (predictName == "Ipau")
-                    {
-                        Toast.makeText(this, "Ini adalah $predictName", Toast.LENGTH_SHORT).show()
-                    }
-
                     intent.putExtra("imageBitmap", bitmap)
                     intent.putExtra("className", predictName)
                     intent.putExtra("expired", expired)
                     intent.putExtra("about", about)
-                    intent.putExtra("suhu", teksSuhu)
+                    intent.putExtra("suhu", suhu)
+                    intent.putExtra("linkPostIg", linkPostIg)
                     startActivity(intent)
 
                 }catch (e: IOException){
@@ -196,8 +190,10 @@ class MainActivity : AppCompatActivity() {
             }
             "Ipau" -> {
                 expired = "1 Hari"
-                about = ""
-                teksSuhu = "25 Celcius"
+                about = "Ipau adalah makanan khas dari Banjarmasin, Kalimantan Selatan dan sudah ditetapkan dalam SK Walikota nomor 811/2017. Kue Ipau berwarna putih, berbentuk bulat dengan taburan daging di lapisan atasnya dan memiliki tekstur lembut. Ipau dikenal sebagai kue tradisional yang diolah oleh warga dari keturunan Arab yang berasal dari Kelurahan Antasan Kecil Barat, Banjarmasin Tengah atau di Kampung Arab-nya Banjarmasin. Kue Ipau ada yang disajikan kering dan ada yang basah. Kue Ipau yang basah dikarenakan ditambah siraman kuah santan. Kue ini memiliki cita rasa manis dan gurih dari kuah santan dan taburan daging sapi.\n" +
+                        "Sekilas kue ini memiliki tampilan yang mirip dengan Lasagna. Hal ini dikarenakan bentuk kue Ipau yang memiliki banyak lapisan dengan daging di setiap lapisannya. Ipau biasanya dijual di bulan Ramadan dan merupakan salah satu takjil untuk berbuka puasa. Kue Ipau akan dijual dalam bentuk loyang atau potongan kecil.\n"
+                suhu = "25 °C"
+                linkPostIg = "https://www.instagram.com/p/CH7Kq-lL29G/?igsh=MXdrM29rdzY0ZHdvaw=="
             }
             "Kakaraban" -> {
                 expired = "1 Hari"
