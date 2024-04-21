@@ -14,7 +14,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import id.tugasakhir.sistempendeteksiwadaikhasbanjar.R
 import id.tugasakhir.sistempendeteksiwadaikhasbanjar.databinding.ActivityMainBinding
-import id.tugasakhir.sistempendeteksiwadaikhasbanjar.ml.Model
+import id.tugasakhir.sistempendeteksiwadaikhasbanjar.ml.ModelQuantized
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 import java.io.IOException
@@ -24,13 +24,12 @@ import java.nio.ByteOrder
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private var imageSize = 32
+    private var imageSize = 256
     private var predictName = ""
     private var expired = ""
     private var suhu = ""
     private var about = ""
     private var linkPostIg = ""
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -46,13 +45,10 @@ class MainActivity : AppCompatActivity() {
         window.statusBarColor = resources.getColor(R.color.blue)
 
         binding.btnCamera.setOnClickListener {
-            if (checkSelfPermission(android.Manifest.permission.CAMERA) ==  PackageManager.PERMISSION_GRANTED)
-            {
+            if (checkSelfPermission(android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                 val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 startActivityForResult(intent, 3)
-            }
-            else
-            {
+            } else {
                 requestPermissions(arrayOf(android.Manifest.permission.CAMERA), 100)
             }
         }
@@ -67,7 +63,6 @@ class MainActivity : AppCompatActivity() {
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if (resultCode == Activity.RESULT_OK && requestCode == 3)
         {
             var bitmap = data?.extras?.get("data") as Bitmap
@@ -117,10 +112,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun classificationImage(bitmap: Bitmap) {
-        val model = Model.newInstance(applicationContext)
+        val model = ModelQuantized.newInstance(applicationContext)
 
         // Creates inputs for reference.
-        val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 32, 32, 3), DataType.FLOAT32)
+        val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 256, 256, 3), DataType.FLOAT32)
         val byteBuffer = ByteBuffer.allocateDirect(4 * imageSize * imageSize * 3)
         val value = IntArray(imageSize * imageSize)
         var pixel = 0
@@ -128,14 +123,12 @@ class MainActivity : AppCompatActivity() {
         byteBuffer.order(ByteOrder.nativeOrder())
         bitmap.getPixels(value, 0, bitmap.width, 0, 0, bitmap.width, bitmap.height)
 
-        for (i in 0..< imageSize)
-        {
-            for (j in 0..< imageSize)
-            {
+        for (i in 0..<imageSize) {
+            for (j in 0..<imageSize) {
                 val rgb = value[pixel++]
-                byteBuffer.putFloat(((rgb shr 16) and 0xFF) * (1f/ 1f))
-                byteBuffer.putFloat(((rgb shr 8) and 0xFF) * (1f / 1f))
-                byteBuffer.putFloat((rgb * 0xFF) * (1f / 1f))
+                byteBuffer.putFloat(((rgb shr 16) and 0xFF) / 255f)
+                byteBuffer.putFloat(((rgb shr 8) and 0xFF) / 255f)
+                byteBuffer.putFloat((rgb and 0xFF) / 255f)
             }
         }
 
@@ -146,7 +139,7 @@ class MainActivity : AppCompatActivity() {
         val outputFeature0 = outputs.outputFeature0AsTensorBuffer
         val confidences = outputFeature0.floatArray
         var maxPos = 0
-        var maxConfidence = 0f
+        var maxConfidence = confidences[0]
         val classes = arrayOf(
             "Amparan Tatak",
             "Bingka",
@@ -159,62 +152,77 @@ class MainActivity : AppCompatActivity() {
             "Talipuk",
             "Untuk Untuk",
         )
-        val intent = Intent(this@MainActivity, DetailDetectionActivity::class.java)
 
-        for (i in confidences.indices)
-        {
-            if (confidences[i] > maxConfidence)
-            {
+        for (i in confidences.indices) {
+            if (confidences[i] > maxConfidence) {
                 maxConfidence = confidences[i]
                 maxPos = i
             }
         }
-        predictName = classes[maxPos]
+
+        predictName = if (maxConfidence >= 0.090) {
+            classes[maxPos]
+        }
+        else
+        {
+            "class tidak diketahui"
+        }
 
         when (predictName) {
             "Amparan Tatak" -> {
                 expired = "1 Hari"
                 about = ""
             }
+
             "Bingka" -> {
                 expired = "1 Hari"
                 about = "Buah Pisang"
             }
+
             "Bingka Barandam" -> {
                 expired = "1 Hari"
                 about = ""
             }
+
             "Hula Hula" -> {
                 expired = "1 Hari"
                 about = ""
             }
+
             "Ipau" -> {
                 expired = "1 Hari"
-                about = "Ipau adalah makanan khas dari Banjarmasin, Kalimantan Selatan dan sudah ditetapkan dalam SK Walikota nomor 811/2017. Kue Ipau berwarna putih, berbentuk bulat dengan taburan daging di lapisan atasnya dan memiliki tekstur lembut. Ipau dikenal sebagai kue tradisional yang diolah oleh warga dari keturunan Arab yang berasal dari Kelurahan Antasan Kecil Barat, Banjarmasin Tengah atau di Kampung Arab-nya Banjarmasin. Kue Ipau ada yang disajikan kering dan ada yang basah. Kue Ipau yang basah dikarenakan ditambah siraman kuah santan. Kue ini memiliki cita rasa manis dan gurih dari kuah santan dan taburan daging sapi.\n" +
-                        "Sekilas kue ini memiliki tampilan yang mirip dengan Lasagna. Hal ini dikarenakan bentuk kue Ipau yang memiliki banyak lapisan dengan daging di setiap lapisannya. Ipau biasanya dijual di bulan Ramadan dan merupakan salah satu takjil untuk berbuka puasa. Kue Ipau akan dijual dalam bentuk loyang atau potongan kecil.\n"
+                about =
+                    "Ipau adalah makanan khas dari Banjarmasin, Kalimantan Selatan dan sudah ditetapkan dalam SK Walikota nomor 811/2017. Kue Ipau berwarna putih, berbentuk bulat dengan taburan daging di lapisan atasnya dan memiliki tekstur lembut. Ipau dikenal sebagai kue tradisional yang diolah oleh warga dari keturunan Arab yang berasal dari Kelurahan Antasan Kecil Barat, Banjarmasin Tengah atau di Kampung Arab-nya Banjarmasin. Kue Ipau ada yang disajikan kering dan ada yang basah. Kue Ipau yang basah dikarenakan ditambah siraman kuah santan. Kue ini memiliki cita rasa manis dan gurih dari kuah santan dan taburan daging sapi.\n" +
+                            "Sekilas kue ini memiliki tampilan yang mirip dengan Lasagna. Hal ini dikarenakan bentuk kue Ipau yang memiliki banyak lapisan dengan daging di setiap lapisannya. Ipau biasanya dijual di bulan Ramadan dan merupakan salah satu takjil untuk berbuka puasa. Kue Ipau akan dijual dalam bentuk loyang atau potongan kecil.\n"
                 suhu = "25 °C"
                 linkPostIg = "https://www.instagram.com/p/CH7Kq-lL29G/?igsh=MXdrM29rdzY0ZHdvaw=="
             }
+
             "Kakaraban" -> {
                 expired = "1 Hari"
                 about = ""
             }
+
             "Lapis India" -> {
                 expired = "1 Hari"
                 about = ""
             }
+
             "Sarimuka" -> {
                 expired = "1 Hari"
                 about = ""
             }
+
             "Talipuk" -> {
                 expired = "1 Hari"
                 about = ""
             }
+
             "Untuk Untuk" -> {
                 expired = "1 Hari"
                 about = ""
             }
+
             else -> {
                 expired = ""
                 about = ""
