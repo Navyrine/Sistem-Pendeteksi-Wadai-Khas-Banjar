@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.net.Uri
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.Button
@@ -13,12 +12,21 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
 import id.tugasakhir.sistempendeteksiwadaikhasbanjar.R
+import id.tugasakhir.sistempendeteksiwadaikhasbanjar.adapter.WadaiImageAdapter
+import id.tugasakhir.sistempendeteksiwadaikhasbanjar.data.WadaiImage
 import id.tugasakhir.sistempendeteksiwadaikhasbanjar.databinding.ActivityDetailDetectionBinding
 
 @Suppress("DEPRECATION")
 class DetailDetectionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailDetectionBinding
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var wadaiImageList: ArrayList<WadaiImage>
+    private lateinit var adapter: WadaiImageAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -35,12 +43,26 @@ class DetailDetectionActivity : AppCompatActivity() {
         val getExpired = intent.getStringExtra("expired")
         val getAbout = intent.getStringExtra("about")
         val getTemperature = intent.getStringExtra("temperature")
-        val getLinkPostIg = intent.getStringExtra("linkPostIg")
 
         setupUI(
             getImageBitmap, getClassName, getExpired, getAbout,
-            getTemperature, getLinkPostIg
+            getTemperature
         )
+    }
+    private fun init()
+    {
+        recyclerView = findViewById(R.id.rv_wadai_image)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+
+        val snapHelper: SnapHelper = LinearSnapHelper()
+        snapHelper.attachToRecyclerView(recyclerView)
+        wadaiImageList= ArrayList()
+
+        addWadaiImage()
+
+        adapter = WadaiImageAdapter(wadaiImageList)
+        recyclerView.adapter = adapter
     }
     private fun setWindowsInsets()
     {
@@ -56,7 +78,6 @@ class DetailDetectionActivity : AppCompatActivity() {
         expired: String?,
         about: String?,
         temperature: String?,
-        linkPostIg: String?,
     ) {
         binding.ivDetailImage.setImageBitmap(imageBitmap)
         binding.tvBodyName.text = className
@@ -64,15 +85,12 @@ class DetailDetectionActivity : AppCompatActivity() {
         binding.tvBodyTemperature?.text = temperature
         binding.tvBodyAbout.text = about
 
+        init()
+
         binding.ibBack?.setOnClickListener {
             val intent = Intent(this@DetailDetectionActivity, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             }
-            startActivity(intent)
-        }
-
-        binding.ibInstagram?.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(linkPostIg))
             startActivity(intent)
         }
 
@@ -93,5 +111,14 @@ class DetailDetectionActivity : AppCompatActivity() {
             dialog.dismiss()
         }
         dialog.show()
+    }
+
+    private fun addWadaiImage()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.ipau1))
+        wadaiImageList.add(WadaiImage(R.drawable.ipau2))
+        wadaiImageList.add(WadaiImage(R.drawable.ipau3))
+        wadaiImageList.add(WadaiImage(R.drawable.ipau4))
+        wadaiImageList.add(WadaiImage(R.drawable.ipau5))
     }
 }

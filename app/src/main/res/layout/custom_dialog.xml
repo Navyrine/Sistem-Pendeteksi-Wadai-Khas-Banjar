@@ -19,7 +19,8 @@
         android:fontFamily="@font/proxima_nova_semibold"
         android:text="@string/title_alert"
         android:textAlignment="center"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:textColor="@color/black"/>
 
     <TextView
         android:id="@+id/textView2"
@@ -30,7 +31,8 @@
         android:fontFamily="@font/proxima_nova_regular"
         android:text="@string/message_alert"
         android:textAlignment="center"
-        android:textSize="17sp" />
+        android:textSize="17sp"
+        android:textColor="@color/black"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_ok_alert"

@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
     private var expired = ""
     private var about = ""
     private var temperature = ""
-    private var linkPostIg = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -158,7 +157,6 @@ class MainActivity : AppCompatActivity() {
             putExtra("expired", expired)
             putExtra("about", about)
             putExtra("temperature", temperature)
-            putExtra("linkPostIg", linkPostIg)
         }
         startActivity(intent)
     }
@@ -170,63 +168,54 @@ class MainActivity : AppCompatActivity() {
                 expired = ""
                 about = ""
                 temperature = "°C"
-                linkPostIg = ""
             }
             "Bingka" -> {
                 className = "Bingka"
                 expired = ""
                 about = ""
                 temperature = "°C"
-                linkPostIg = ""
             }
             "Bingka Barandam" -> {
                 className = "Bingka Barandam"
                 expired = ""
                 about = ""
                 temperature = "°C"
-                linkPostIg = ""
             }
             "Hula Hula" -> {
                 className = "Hula Hula"
                 expired = ""
                 about = ""
                 temperature = "°C"
-                linkPostIg = ""
             }
             "Ipau" -> {
                 className = "Ipau"
                 expired = "1 Hari"
                 about = getString(R.string.body_about_ipau)
                 temperature = "25 °C"
-                linkPostIg = "https://www.instagram.com/p/CH7Kq-lL29G/?igsh=MXdrM29rdzY0ZHdvaw=="
             }
             "Lapis India" -> {
                 className = "Lapis India"
                 expired = ""
                 about = ""
                 temperature = "°C"
-                linkPostIg = ""
             }
             "Sarimuka" -> {
                 className = "Sarimuka"
                 expired = ""
                 about = ""
                 temperature = "°C"
-                linkPostIg = ""
             }
             "Talipuk" -> {
                 className = "Talipuk"
                 expired = ""
                 about = ""
                 temperature = "°C"
-                linkPostIg = ""
             }
             else -> {
                 className = ""
                 expired = ""
                 about = ""
                 temperature = ""
-                linkPostIg = ""
             }
         }
     }

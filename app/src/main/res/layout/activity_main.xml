@@ -68,7 +68,7 @@
         android:backgroundTint="@color/blue"
         android:drawableTop="@drawable/ic_upload"
         android:text="@string/upload_gambar"
-        android:textColor="@color/brown"
+        android:textColor="@color/white"
         app:cornerRadius="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_pengantar" />
@@ -82,7 +82,7 @@
         android:backgroundTint="@color/blue"
         android:drawableTop="@drawable/ic_camera"
         android:text="@string/take_picture"
-        android:textColor="@color/brown"
+        android:textColor="@color/white"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_pengantar" />
@@ -96,6 +96,7 @@
         android:text="@string/pengantar"
         android:textAlignment="center"
         android:textSize="20sp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
