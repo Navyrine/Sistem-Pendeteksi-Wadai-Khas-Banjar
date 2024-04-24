@@ -165,51 +165,51 @@ class MainActivity : AppCompatActivity() {
         return when (name) {
             "Amparan Tatak" -> {
                 className = "Amparan Tatak"
-                expired = ""
-                about = ""
-                temperature = "°C"
+                expired = "1 Hari"
+                about = getString(R.string.body_about_amparan_tatak)
+                temperature = "20°C"
             }
             "Bingka" -> {
                 className = "Bingka"
-                expired = ""
-                about = ""
-                temperature = "°C"
+                expired = "2 sampai 4 Hari"
+                about = getString(R.string.body_about_bingka)
+                temperature = "20°C sampai 4°C"
             }
             "Bingka Barandam" -> {
                 className = "Bingka Barandam"
-                expired = ""
-                about = ""
-                temperature = "°C"
+                expired = "2 sampai 4 Hari"
+                about = getString(R.string.body_about_bingka_berandam)
+                temperature = "20°C sampai 4°C"
             }
             "Hula Hula" -> {
                 className = "Hula Hula"
-                expired = ""
+                expired = "3 sampai 5 Hari"
                 about = ""
-                temperature = "°C"
+                temperature = "20°C sampai 4°C"
             }
             "Ipau" -> {
                 className = "Ipau"
-                expired = "1 Hari"
+                expired = "1 sampai 3 Hari"
                 about = getString(R.string.body_about_ipau)
-                temperature = "25 °C"
+                temperature = "20°C sampai 4°C"
             }
             "Lapis India" -> {
                 className = "Lapis India"
-                expired = ""
-                about = ""
-                temperature = "°C"
+                expired = "3 sampai 7 Hari"
+                about = getString(R.string.body_about_lapis_india)
+                temperature = "20°C sampai 4°C"
             }
             "Sarimuka" -> {
                 className = "Sarimuka"
-                expired = ""
-                about = ""
-                temperature = "°C"
+                expired = "2 sampai 7 Hari"
+                about = getString(R.string.body_about_sarimuka)
+                temperature = "20°C sampai 4°C"
             }
             "Talipuk" -> {
                 className = "Talipuk"
-                expired = ""
-                about = ""
-                temperature = "°C"
+                expired = "2 sampai 7 Hari"
+                about = getString(R.string.body_about_talipuk)
+                temperature = "20°C sampai 4°C"
             }
             else -> {
                 className = ""

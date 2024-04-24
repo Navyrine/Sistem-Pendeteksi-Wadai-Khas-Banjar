@@ -11,12 +11,59 @@
     <string name="title_about">Deskripsi</string>
     <string name="suhu">25 Celcius</string>
     <string name="body_about">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce odio sapien, posuere eget mauris ac, bibendum rutrum urna. Nulla facilisi. Nunc suscipit varius nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque at eros faucibus, vulputate urna nec, feugiat tortor. Mauris in quam ligula. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eget viverra lorem. Sed a gravida lorem. Donec tempus velit non sem vulputate venenatis. Nunc iaculis tempor pellentesque. Donec et sodales augue, eget mattis turpis. Morbi non neque ipsum. Nunc vel est pellentesque, placerat nunc in, consequat odio. Donec vel sem consectetur, rutrum tellus vitae, convallis nunc. Aenean eu tellus consectetur, ultricies eros non, pretium metus. Phasellus mollis diam sed auctor pellentesque. Aenean libero libero, rhoncus at vestibulum vel, pharetra sed nulla. Vivamus scelerisque ligula sed tortor tempus, ut accumsan justo fermentum. Nullam et odio sed mi iaculis egestas. Nullam at fringilla purus. Donec felis dui, iaculis vel purus id, facilisis mollis mi. Fusce rutrum justo ac tempus fermentum. Vivamus mollis augue magna, in mattis magna mollis id. Proin sollicitudin ultricies magna. Phasellus faucibus risus quam, sit amet egestas nibh fringilla et. Vestibulum efficitur libero dui, et mollis libero tempus nec. Duis quis magna ac metus sollicitudin congue sed vitae mi. Suspendisse tincidunt, lectus sed semper maximus, urna dolor porta massa, eu aliquam lacus orci congue ex.</string>
-    <string name="body_about_ipau">Ipau adalah makanan khas dari Banjarmasin, Kalimantan Selatan dan sudah ditetapkan dalam SK Walikota nomor 811/2017. Kue Ipau berwarna putih, berbentuk bulat dengan taburan daging di lapisan atasnya dan memiliki tekstur lembut. Ipau dikenal sebagai kue tradisional yang diolah oleh warga dari keturunan Arab yang berasal dari Kelurahan Antasan Kecil Barat, Banjarmasin Tengah atau di Kampung Arab-nya Banjarmasin. Kue Ipau ada yang disajikan kering dan ada yang basah. Kue Ipau yang basah dikarenakan ditambah siraman kuah santan. Kue ini memiliki cita rasa manis dan gurih dari kuah santan dan taburan daging sapi.\n +
-                            Sekilas kue ini memiliki tampilan yang mirip dengan Lasagna. Hal ini dikarenakan bentuk kue Ipau yang memiliki banyak lapisan dengan daging di setiap lapisannya. Ipau biasanya dijual di bulan Ramadan dan merupakan salah satu takjil untuk berbuka puasa. Kue Ipau akan dijual dalam bentuk loyang atau potongan kecil.\n</string>
+    <string name="body_about_ipau">
+        Ipau adalah makanan khas dari Banjarmasin, Kalimantan Selatan dan sudah ditetapkan dalam SK Walikota nomor 811/2017. Kue Ipau berwarna putih, berbentuk bulat dengan taburan daging di lapisan atasnya dan memiliki tekstur lembut. Ipau dikenal sebagai kue tradisional yang diolah oleh warga dari keturunan Arab yang berasal dari Kelurahan Antasan Kecil Barat, Banjarmasin Tengah atau di Kampung Arab-nya Banjarmasin. Kue Ipau ada yang disajikan kering dan ada yang basah. Kue Ipau yang basah dikarenakan ditambah siraman kuah santan. Kue ini memiliki cita rasa manis dan gurih dari kuah santan dan taburan daging sapi.
+        \n
+        \n
+        Sekilas kue ini memiliki tampilan yang mirip dengan Lasagna. Hal ini dikarenakan bentuk kue Ipau yang memiliki banyak lapisan dengan daging di setiap lapisannya. Ipau biasanya dijual di bulan Ramadan dan merupakan salah satu takjil untuk berbuka puasa. Kue Ipau akan dijual dalam bentuk loyang atau potongan kecil.
+    </string>
+    <string name="body_about_amparan_tatak">
+        Amparan Tatak adalah kue tradisional khas dari suku Banjar. Kue ini termasuk ke dalam kategori kue basah dengan bahan utama berupa tepung beras, santan, gula dan pisang. Kue ini didominasi oleh rasa gurih dan manis sehingga menjadi salah satu jajanan yang dicari di pasar wadai selama bulan Ramadan.
+    </string>
+    <string name="body_about_bingka">
+        Bingka adalah kue yang menjadi ciri khas Suku Banjar, Kalimantan Selatan. Bingka memiliki citarasa yang manis, legit dan lembut. Bingka merupakan salah satu kue yang digunakan dalam tradisi suku Banjar untuk menyajikan 41 jenis kue untuk acara-acara istimewa seperti pernikahan ataupun selamatan. Meskipun dapat ditemukan sepanjang tahun, bingka menjadi primadona pada bulan Ramadan karena dianggap cocok menjadi hidangan untuk berbuka puasa.
+        \n
+        \n
+        Bingka dibuat dari bahan-bahan sebagai berikut: tepung terigu, telur, santan, gula pasir, dan garam. Sebagai kelaziman, bingka dipanggang dengan cetakan berbentuk bunga. Ada bermacam-macam perisa bingka seperti bingka tapai ketan, bingka kentang, bingka labu, bingka pandan, bingka kelapa dan lain sebagainya. Selain itu, ada jenis bingka lain yang menjadi favorit orang Banjar dalam bulan puasa, yaitu "bingka barandam" yang sebenarnya agak berbeda cara pembuatannya. Satu loyang bingka biasanya sudah cukup mengenyangkan dan dapat dinikmati sampai dengan enam orang.
+        \n
+        \n
+        Selain menjadi kue khas Suku Banjar, bingka juga terkenal di provinsi-provinsi tetangga seperti Kalimantan Timur dan Kalimantan Tengah, dan mempunyai kemiripan dengan kue bingke yang berasal dari Pontianak, Kalimantan Barat. Bingka Banjar tidak hanya dikenal didalam negeri namun juga di mancanegara seperti Malaysia dan Brunei Darussalam. Di Filipina selatan, sejenis kue ini disebut Bibingka.
+    </string>
+    <string name="body_about_bingka_berandam">
+        Bingka Barandam adalah salah satu kue tradisional khas Banjar, Kalimantan Selatan. Sesuai dengan namanya, kue ini disajikan dengan cara Barandam atau berendam di dalam kuah gula merah. Biasanya kue ini ditemukan saat bulan Ramadan sebagai sajian takjil untuk berbuka puasa. Kue ini umumnya berbentuk bulat, bercita rasa manis dan memiliki tekstur seperti bolu juga lembut.
+        \n
+        \n
+        Di daerah lain, kue ini memiliki nama yang beragam seperti di Martapura kue ini dikenal dengan nama Apam Berahim, sedangkan di Pagatan dan sekitarnya dikenal dengan nama Apam Tello dan berwarna coklat gelap.
+        \n
+        \n
+        Meskipun mengandung nama Bingka, namun bahan yang digunakan terdapat perbedaan dengan bahan utama kue Bingka, yaitu tidak adanya santan.
+    </string>
+    <string name="body_about_hula_hula">
+        Kue Hula-Hula adalah hidangan berupa kue santan dua biasanya berlapis-lapis, berwarna hijau dan putih yang berasal dari Banjarmasin. Kue ini memiliki cita rasa manis dan lembut dan biasanya dijadikan takjil saat Ramadan.
+    </string>
+    <string name="body_about_lapis_india">
+        Lapis india adalah nama kue khas Banjar, Kalimantan Selatan. Kue ini memiliki rasa yang manis, tekstur yang lembut dan bentuknya meliuk-liuk. Manis kue ini berasal dari gula merah sekaligus sebagai pemberi warna coklat. Selain itu juga memakai santan dan daun pandan untuk menambah rasa dan aromanya.
+        \n
+        \n
+        Kue lapis india bukan berasal dari India namun dinamakan karena tampilan kue ini yang bergelombang, seperti penari India yang sedang bergoyang.
+        \n
+        \n
+        Kue lapis india biasanya hanya dijual di saat bulan puasa sebagai kudapan saat berbuka puasa.
+    </string>
+    <string name="body_about_sarimuka">
+        Sarimuka adalah salah satu jenis kue jajanan tradisional yang terbuat dari beras untuk lapisan bawahnya dan adonan santan untuk lapisan atasnya dan berasal dari Kalimantan Selatan. Selain dari beras, bagian bawahnya juga bisa diganti dengan ketan.
+        \n
+        \n
+        Kue sarimuka memiliki cita rasa unik, dimana bagian atasnya bertekstur lembut dengan rasa manis sementara bagian bawahnya terasa tawar dan agak kasar. Selain di Kalimantan Selatan, kue ini juga bisa ditemukan di Lombok, Nusa Tenggara Barat dan Tembilahan, Riau dengan nama yang sama.
+        \n
+        \n
+        Sarimuka biasanya hanya bisa dijumpai saat bulan puasa tiba dan dijajakan di Pasar wadai. Pada zaman sekarang, tampilan kue Sarimuka ini disajikan dengan berbagai warna agar menarik perhatian para pembeli.
+    </string>
+    <string name="body_about_talipuk">
+        Kue Talipuk atau Kue Cincin Talipuk adalah sebuah makanan camilan khas kecamatan Amuntai Tengah, Kabupaten Hulu Sungai Utara, Provinsi Kalimantan Selatan. Kue tersebut terbuat dari Tatanding, sejenis tumbuhan air atau bunga teratai. Bunga tersebut diambil buahnya seterusnya didiamkan dalam wadah tertutup selama beberapa hari sampai warnanya berubah menjadi kecoklatan. Buah itu lalu dijemur sampai kering, lalu digiling hingga menjadi tepung. Kemudian tepung tersebut dicampur bahan lainnya lalu dibuat menjadi kue cincin.
+    </string>
     <string name="title_alert">Kacari Notifikasi</string>
     <string name="message_alert">Maaf, gambar yang Anda berikan tidak termasuk wadai khas Banjar</string>
     <string name="teks_button_alert">OK</string>
     <string name="title_galeri">Galeri</string>
-
-
 </resources>

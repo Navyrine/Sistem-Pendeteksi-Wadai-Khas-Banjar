@@ -49,7 +49,7 @@ class DetailDetectionActivity : AppCompatActivity() {
             getTemperature
         )
     }
-    private fun init()
+    private fun init(className: String?)
     {
         recyclerView = findViewById(R.id.rv_wadai_image)
         recyclerView.setHasFixedSize(true)
@@ -59,7 +59,16 @@ class DetailDetectionActivity : AppCompatActivity() {
         snapHelper.attachToRecyclerView(recyclerView)
         wadaiImageList= ArrayList()
 
-        addWadaiImage()
+        when (className) {
+            "Ipau" -> addWadaiIpau()
+            "Amparan Tatak" -> addWadaiAmparanTatak()
+            "Bingka" -> addWadaiBingka()
+            "Bingka Barandam" -> addWadaiBingkaBarandam()
+            "Hula Hula" -> addWadaiHulaHula()
+            "Lapis India" -> addWadaiLapisIndia()
+            "Sarimuka" -> addWadaiSarimuka()
+            "Talipuk" -> addWadaiTalipuk()
+        }
 
         adapter = WadaiImageAdapter(wadaiImageList)
         recyclerView.adapter = adapter
@@ -85,8 +94,6 @@ class DetailDetectionActivity : AppCompatActivity() {
         binding.tvBodyTemperature?.text = temperature
         binding.tvBodyAbout.text = about
 
-        init()
-
         binding.ibBack?.setOnClickListener {
             val intent = Intent(this@DetailDetectionActivity, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
@@ -94,9 +101,13 @@ class DetailDetectionActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        init(className)
+
         if (className == "Ipau") {
             showAlertDialog()
+
         }
+
     }
     private fun showAlertDialog()
     {
@@ -113,12 +124,68 @@ class DetailDetectionActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun addWadaiImage()
+    private fun addWadaiIpau()
     {
         wadaiImageList.add(WadaiImage(R.drawable.ipau1))
         wadaiImageList.add(WadaiImage(R.drawable.ipau2))
         wadaiImageList.add(WadaiImage(R.drawable.ipau3))
         wadaiImageList.add(WadaiImage(R.drawable.ipau4))
         wadaiImageList.add(WadaiImage(R.drawable.ipau5))
+    }
+    private fun addWadaiAmparanTatak()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.amparan_tatak1))
+        wadaiImageList.add(WadaiImage(R.drawable.amparan_tatak2))
+        wadaiImageList.add(WadaiImage(R.drawable.amparan_tatak3))
+        wadaiImageList.add(WadaiImage(R.drawable.amparan_tatak4))
+        wadaiImageList.add(WadaiImage(R.drawable.amparan_tatak5))
+    }
+    private fun addWadaiBingka()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.bingka_kentang))
+        wadaiImageList.add(WadaiImage(R.drawable.bingka_kentang2))
+        wadaiImageList.add(WadaiImage(R.drawable.bingka_kentang3))
+        wadaiImageList.add(WadaiImage(R.drawable.bingka_kentang4))
+        wadaiImageList.add(WadaiImage(R.drawable.bingka_kentang5))
+    }
+    private fun addWadaiBingkaBarandam()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.bingka_barandam1))
+        wadaiImageList.add(WadaiImage(R.drawable.bingka_barandam2))
+        wadaiImageList.add(WadaiImage(R.drawable.bingka_barandam3))
+        wadaiImageList.add(WadaiImage(R.drawable.bingka_barandam4))
+        wadaiImageList.add(WadaiImage(R.drawable.bingka_barandam5))
+    }
+    private fun addWadaiHulaHula()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.hula_hula1))
+        wadaiImageList.add(WadaiImage(R.drawable.hula_hula2))
+        wadaiImageList.add(WadaiImage(R.drawable.hula_hula3))
+        wadaiImageList.add(WadaiImage(R.drawable.hula_hula4))
+        wadaiImageList.add(WadaiImage(R.drawable.hula_hula5))
+    }
+    private fun addWadaiLapisIndia()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.lapis_india1))
+        wadaiImageList.add(WadaiImage(R.drawable.lapis_india2))
+        wadaiImageList.add(WadaiImage(R.drawable.lapis_india3))
+        wadaiImageList.add(WadaiImage(R.drawable.lapis_india4))
+        wadaiImageList.add(WadaiImage(R.drawable.lapis_india5))
+    }
+    private fun addWadaiSarimuka()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.sarimuka1))
+        wadaiImageList.add(WadaiImage(R.drawable.sarimuka2))
+        wadaiImageList.add(WadaiImage(R.drawable.sarimuka3))
+        wadaiImageList.add(WadaiImage(R.drawable.sarimuka4))
+        wadaiImageList.add(WadaiImage(R.drawable.sarimuka5))
+    }
+    private fun addWadaiTalipuk()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.talipuk1))
+        wadaiImageList.add(WadaiImage(R.drawable.talipuk2))
+        wadaiImageList.add(WadaiImage(R.drawable.talipuk3))
+        wadaiImageList.add(WadaiImage(R.drawable.talipuk4))
+        wadaiImageList.add(WadaiImage(R.drawable.talipuk5))
     }
 }
