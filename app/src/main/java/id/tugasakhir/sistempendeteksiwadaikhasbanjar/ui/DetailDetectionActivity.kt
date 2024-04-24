@@ -1,11 +1,15 @@
 package id.tugasakhir.sistempendeteksiwadaikhasbanjar.ui
 
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.view.ViewGroup
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -78,14 +82,16 @@ class DetailDetectionActivity : AppCompatActivity() {
     }
     private fun showAlertDialog()
     {
-        val builder: AlertDialog.Builder = AlertDialog.Builder(this@DetailDetectionActivity)
-        builder
-            .setTitle("Alert")
-            .setMessage("Maaf, Ipau bukan termasuk wadai khas Banjar")
-            .setPositiveButton("Ok") { dialog, which ->
-                dialog.dismiss()
-            }
-        val alertDialog = builder.create()
-        alertDialog.show()
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.custom_dialog)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.setCancelable(false)
+
+        val btnOk = dialog.findViewById<Button>(R.id.btn_ok_alert)
+        btnOk.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 }
