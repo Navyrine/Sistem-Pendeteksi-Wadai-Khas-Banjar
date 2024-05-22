@@ -1,7 +1,6 @@
 package id.tugasakhir.sistempendeteksiwadaikhasbanjar.ui
 
 import android.app.Dialog
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -36,7 +35,7 @@ class DetailDetectionActivity : AppCompatActivity() {
 
         window.navigationBarColor = resources.getColor(R.color.blue)
         window.statusBarColor = resources.getColor(R.color.blue)
-        binding.bvBodyName?.setBlur(this, binding.bvBodyName, 100)
+        binding.bvResultName.setBlur(this, binding.bvResultName, 100)
 
         val getImageBitmap: Bitmap? = intent.getParcelableExtra("imageBitmap")
         val getClassName = intent.getStringExtra("className")
@@ -88,18 +87,16 @@ class DetailDetectionActivity : AppCompatActivity() {
         about: String?,
         temperature: String?,
     ) {
-        binding.ivDetailImage.setImageBitmap(imageBitmap)
-        binding.tvBodyName.text = className
+        binding.ivResultImage.setImageBitmap(imageBitmap)
+        binding.tvResultBodyName.text = className
         binding.tvBodyExpired.text = expired
-        binding.tvBodyTemperature?.text = temperature
+        binding.tvBodyTemperature.text = temperature
         binding.tvBodyAbout.text = about
 
-        binding.ibBack?.setOnClickListener {
-            val intent = Intent(this@DetailDetectionActivity, MainActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            }
-            startActivity(intent)
+        binding.ibBack.setOnClickListener {
+           onBackPressed()
         }
+
 
         init(className)
 

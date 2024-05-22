@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.media.ThumbnailUtils
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -38,25 +39,28 @@ class MainActivity : AppCompatActivity() {
         window.statusBarColor = resources.getColor(R.color.blue)
 
         binding.btnCamera.setOnClickListener {
-           checkCameraPermission()
+            checkCameraPermission()
         }
 
         binding.btnUploadImage.setOnClickListener {
-           pickImageFromGallery()
+            pickImageFromGallery()
         }
     }
+
     private fun pickImageFromGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(intent, 1)
     }
+
     private fun checkCameraPermission() {
         if (checkSelfPermission(android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             startActivityForResult(intent, 3)
         } else {
-            requestPermissions(arrayOf(android.Manifest.permission.CAMERA),  100)
+            requestPermissions(arrayOf(android.Manifest.permission.CAMERA), 100)
         }
     }
+
     private fun setupWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main_activity)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -64,40 +68,41 @@ class MainActivity : AppCompatActivity() {
             insets
         }
     }
-    private fun handleCameraResult(data: Intent?)
-    {
+
+    private fun handleCameraResult(data: Intent?) {
         data?.extras?.get("data")?.let { bitmap ->
             processBitmap(bitmap as Bitmap)
         }
     }
-    private fun handleGalleryResult(data: Intent?)
-    {
+
+    private fun handleGalleryResult(data: Intent?) {
         val uri = data?.data
         uri?.let {
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
                 processBitmap(bitmap)
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (resultCode == Activity.RESULT_OK)
-        {
-            when (requestCode){
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
                 REQUEST_CODE_CAMERA -> handleCameraResult(data)
                 REQUEST_CODE_PICK_IMAGE -> handleGalleryResult(data)
             }
         }
     }
-    private fun processBitmap(bitmap: Bitmap)
-    {
+
+    private fun processBitmap(bitmap: Bitmap) {
         val resizedBitmap = ThumbnailUtils.extractThumbnail(bitmap, imageSize, imageSize)
         classificationImage(resizedBitmap)
     }
+
     private fun classificationImage(bitmap: Bitmap) {
         val model = ModelQuantized.newInstance(applicationContext)
 
@@ -126,12 +131,14 @@ class MainActivity : AppCompatActivity() {
         val outputFeature0 = outputs.outputFeature0AsTensorBuffer
         val confidences = outputFeature0.floatArray
 
+        val classes = arrayOf(
+            "Amparan Tatak", "Babongko", "Bingka", "Bingka Barandam", "Bubur Gunting", "Dadar Gunting", "Gagodoh",
+            "Hintalu Karuang", "Hula Hula", "Ilat Sapi", "Ipau", "Kararaban", "Kikicak", "Kukulih", "Lam", "Lapis India",
+            "Lempeng", "Lumpur Surga", "Pais", "Pundut Nasi", "Puteri Selat", "Sarimuka", "Talipuk", "Untuk-Untuk",
+        )
+
         var maxPos = 0
         var maxConfidence = confidences[0]
-        val classes = arrayOf(
-            "Amparan Tatak", "Bingka", "Bingka Barandam", "Hula Hula", "Ipau", "Kakaraban",
-            "Lapis India", "Sarimuka", "Talipuk", "Untuk Untuk",
-        )
 
         for (i in confidences.indices) {
             if (confidences[i] > maxConfidence) {
@@ -140,28 +147,54 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        if (maxConfidence >= 0.6)
-        {
-            classifyImage(classes[maxPos])
+        val detectedClassName = classes[maxPos]
+        val similarItems: MutableList<String> = ArrayList()
+        val similarConfidences: MutableList<Float> = ArrayList()
+        val threshold = 0.01
+        val thresholdPercent = (threshold * 100).toInt()
+
+        for (i in confidences.indices) {
+            val confidenceValue = confidences[i]
+            val confidencePercent = (confidenceValue * 100).toInt()
+            Log.d("Filtering", "Confidence value (percent): $confidencePercent, Threshold (percent): $thresholdPercent")
+            if (confidences[i] >= threshold - 1e-6) {
+                similarItems.add(classes[i])
+                similarConfidences.add(confidences[i])
+            }
         }
-        startDetailActivity(bitmap)
+
+        classifyImage(detectedClassName)
+        val similarConfidencesArray: FloatArray = similarConfidences.toFloatArray()
+        Log.d("FilteredData", "Filtered similarItems: $similarItems")
+        Log.d("FilteredData", "Filtered confidences: ${similarConfidencesArray.contentToString()}")
+
+        val similarItemsWithConfidence = similarItems.zip(similarConfidences)
+            .sortedByDescending { it.second }
+            .toMutableList()
+
+        val sortedSimilarItems = similarItemsWithConfidence.map { it.first }
+        val sortedSimilarConfidences = similarItemsWithConfidence.map { it.second }.toFloatArray()
+
+        startResultActivity(bitmap, sortedSimilarItems, sortedSimilarConfidences)
 
         // Releases model resources if no longer used.
         model.close()
     }
-    private fun startDetailActivity( bitmap: Bitmap)
-    {
-        val intent = Intent(this@MainActivity, DetailDetectionActivity::class.java).apply {
-            putExtra("imageBitmap", bitmap)
+
+    private fun startResultActivity(
+        imageBitmap: Bitmap,
+        similarItems: List<String>,
+        similarConfidences: FloatArray
+    ) {
+        val intent = Intent(this@MainActivity, DetectionResultActivity::class.java).apply {
+            putExtra("imageBitmap", imageBitmap)
             putExtra("className", className)
-            putExtra("expired", expired)
-            putExtra("about", about)
-            putExtra("temperature", temperature)
+            putStringArrayListExtra("similarItems", ArrayList(similarItems))
+            putExtra("confidences", similarConfidences)
         }
         startActivity(intent)
     }
-    private fun classifyImage(name: String)
-    {
+    private fun classifyImage(name: String) {
         return when (name) {
             "Amparan Tatak" -> {
                 className = "Amparan Tatak"
@@ -169,48 +202,168 @@ class MainActivity : AppCompatActivity() {
                 about = getString(R.string.body_about_amparan_tatak)
                 temperature = "20°C"
             }
+
             "Bingka" -> {
                 className = "Bingka"
                 expired = "2 sampai 4 Hari"
                 about = getString(R.string.body_about_bingka)
                 temperature = "20°C sampai 4°C"
             }
+
             "Bingka Barandam" -> {
                 className = "Bingka Barandam"
                 expired = "2 sampai 4 Hari"
                 about = getString(R.string.body_about_bingka_berandam)
                 temperature = "20°C sampai 4°C"
             }
+
             "Hula Hula" -> {
                 className = "Hula Hula"
                 expired = "3 sampai 5 Hari"
                 about = ""
                 temperature = "20°C sampai 4°C"
             }
+
             "Ipau" -> {
                 className = "Ipau"
                 expired = "1 sampai 3 Hari"
                 about = getString(R.string.body_about_ipau)
                 temperature = "20°C sampai 4°C"
             }
+
+            "Kararaban" -> {
+                className = "Kararaban"
+                expired = "1 sampai 3 Hari"
+                about = getString(R.string.body_about_ipau)
+                temperature = "20°C sampai 4°C"
+            }
+
             "Lapis India" -> {
                 className = "Lapis India"
                 expired = "3 sampai 7 Hari"
                 about = getString(R.string.body_about_lapis_india)
                 temperature = "20°C sampai 4°C"
             }
+
             "Sarimuka" -> {
                 className = "Sarimuka"
                 expired = "2 sampai 7 Hari"
                 about = getString(R.string.body_about_sarimuka)
                 temperature = "20°C sampai 4°C"
             }
+
             "Talipuk" -> {
                 className = "Talipuk"
                 expired = "2 sampai 7 Hari"
                 about = getString(R.string.body_about_talipuk)
                 temperature = "20°C sampai 4°C"
             }
+            //dari sini komponen label belum diupdate
+            "Untuk-Untuk" -> {
+                className = "Untuk-Untuk"
+                expired = "2 sampai 7 Hari"
+                about = getString(R.string.body_about_talipuk)
+                temperature = "20°C sampai 4°C"
+            }
+
+            "Lumpur Surga" -> {
+                className = "Lumpur Surga"
+                expired = "2 sampai 7 Hari"
+                about = getString(R.string.body_about_talipuk)
+                temperature = "20°C sampai 4°C"
+            }
+
+            "Kukulih" -> {
+                className = "Kukulih"
+                expired = "2 sampai 7 Hari"
+                about = getString(R.string.body_about_talipuk)
+                temperature = "20°C sampai 4°C"
+            }
+
+            "Kikicak" -> {
+                className = "Kikicak"
+                expired = "2 sampai 7 Hari"
+                about = getString(R.string.body_about_talipuk)
+                temperature = "20°C sampai 4°C"
+            }
+
+            "Gagodoh" -> {
+                className = "Gagodoh"
+                expired = "2 sampai 7 Hari"
+                about = getString(R.string.body_about_talipuk)
+                temperature = "20°C sampai 4°C"
+            }
+
+            "Lam" -> {
+                className = "Lam"
+                expired = "2 sampai 7 Hari"
+                about = getString(R.string.body_about_talipuk)
+                temperature = "20°C sampai 4°C"
+            }
+
+            "Hintalu Karuang" -> {
+                className = "Hintalu Karuang"
+                expired = "2 sampai 7 Hari"
+                about = getString(R.string.body_about_talipuk)
+                temperature = "20°C sampai 4°C"
+            }
+
+            "Ilat Sapi" -> {
+                className = "Ilat Sapi"
+                expired = "2 sampai 7 Hari"
+                about = getString(R.string.body_about_talipuk)
+                temperature = "20°C sampai 4°C"
+            }
+
+            "Dadar Gunting" -> {
+                className = "Dadar Guting"
+                expired = "2 sampai 7 Hari"
+                about = getString(R.string.body_about_talipuk)
+                temperature = "20°C sampai 4°C"
+            }
+
+            "Pais" -> {
+                className = "Pais"
+                expired = "2 sampai 7 Hari"
+                about = getString(R.string.body_about_talipuk)
+                temperature = "20°C sampai 4°C"
+            }
+
+            "Babongko" -> {
+                className = "Babongko"
+                expired = "2 sampai 7 Hari"
+                about = getString(R.string.body_about_talipuk)
+                temperature = "20°C sampai 4°C"
+            }
+
+            "Bubur Gunting" -> {
+                className = "Bubur Gunting"
+                expired = "2 sampai 7 Hari"
+                about = getString(R.string.body_about_talipuk)
+                temperature = "20°C sampai 4°C"
+            }
+
+            "Lempeng" -> {
+                className = "Lempeng"
+                expired = "2 sampai 7 Hari"
+                about = getString(R.string.body_about_talipuk)
+                temperature = "20°C sampai 4°C"
+            }
+
+            "Puteri Selat" -> {
+                className = "Puteri Selat"
+                expired = "2 sampai 7 Hari"
+                about = getString(R.string.body_about_talipuk)
+                temperature = "20°C sampai 4°C"
+            }
+
+            "Pundut Nasi" -> {
+                className = "Pundut Nasi"
+                expired = "2 sampai 7 Hari"
+                about = getString(R.string.body_about_talipuk)
+                temperature = "20°C sampai 4°C"
+            }
+
             else -> {
                 className = ""
                 expired = ""
@@ -219,6 +372,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     companion object {
         private const val REQUEST_CODE_CAMERA = 3
         private const val REQUEST_CODE_PICK_IMAGE = 1

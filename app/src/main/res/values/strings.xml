@@ -66,4 +66,6 @@
     <string name="message_alert">Maaf, gambar yang Anda berikan tidak termasuk wadai khas Banjar</string>
     <string name="teks_button_alert">OK</string>
     <string name="title_galeri">Galeri</string>
+    <string name="detection_result">Hasil Deteksi</string>
+    <string name="confidence">0%</string>
 </resources>

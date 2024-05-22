@@ -5,7 +5,8 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -18,9 +19,12 @@
         android:theme="@style/Theme.SistemPendeteksiWadaiKhasBanjar"
         tools:targetApi="31">
         <activity
+            android:name=".ui.DetectionResultActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.DetailDetectionActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
@@ -31,16 +35,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-<!--        <provider-->
-<!--            android:authorities="id.tugasakhir.sistempendeteksiwadaikhasbanjar.ui.FileProvider"-->
-<!--            android:name="androidx.core.content.FileProvider"-->
-<!--            android:exported="false"-->
-<!--            android:grantUriPermissions="true">-->
-
-<!--            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"-->
-<!--                android:resource="@xml/file_paths"/>-->
-<!--        </provider>-->
     </application>
 
 </manifest>
