@@ -26,6 +26,10 @@ class DetectionResultActivity : AppCompatActivity() {
         setContentView(binding.root)
         setUpWindowInset()
 
+        window.navigationBarColor = resources.getColor(R.color.md_theme_primaryContainer)
+        window.statusBarColor = resources.getColor(R.color.md_theme_primaryContainer)
+        binding.bvResultName.setBlur(this, binding.bvResultName, 100)
+
         val getImageBitmap: Bitmap? = intent.getParcelableExtra("imageBitmap")
         val getClassName = intent.getStringExtra("className")
         val similarItems = intent.getStringArrayListExtra("similarItems") ?: arrayListOf()
@@ -97,95 +101,95 @@ class DetectionResultActivity : AppCompatActivity() {
                         putExtra("about", getString(R.string.body_about_talipuk))
                         putExtra("temperature", "20°C sampai 4°C")
                     }
-                    //dari sini komponen label belum diupdate
+
                     "Untuk-Untuk" -> {
                         putExtra("className", "Untuk-Untuk")
-                        putExtra("expired", "2 sampai 7 Hari")
-                        putExtra("about", getString(R.string.body_about_talipuk))
+                        putExtra("expired", "1 sampai 3 Hari")
+                        putExtra("about", getString(R.string.body_about_untuk_untuk))
                         putExtra("temperature", "20°C sampai 4°C")
                     }
                     "Lumpur Surga" -> {
                         putExtra("className", "Lumpur Surga")
-                        putExtra("expired", "2 sampai 7 Hari")
-                        putExtra("about", getString(R.string.body_about_talipuk))
+                        putExtra("expired", "1 sampai 3 Hari")
+                        putExtra("about", getString(R.string.body_about_lumpur_surga))
                         putExtra("temperature", "20°C sampai 4°C")
                     }
                     "Kukulih" -> {
                         putExtra("className", "Kukulih")
-                        putExtra("expired", "2 sampai 7 Hari")
-                        putExtra("about", getString(R.string.body_about_talipuk))
+                        putExtra("expired", "1 sampai 4 Hari")
+                        putExtra("about", getString(R.string.body_about_kukulih))
                         putExtra("temperature", "20°C sampai 4°C")
                     }
                     "Kikicak" -> {
                         putExtra("className", "Kikicak")
-                        putExtra("expired", "2 sampai 7 Hari")
-                        putExtra("about", "")
+                        putExtra("expired", "1 sampai 4 Hari")
+                        putExtra("about", getString(R.string.body_about_kikicak))
                         putExtra("temperature", "20°C sampai 4°C")
                     }
                     "Gagodoh" -> {
                         putExtra("className", "Gagodoh")
-                        putExtra("expired", "2 sampai 7 Hari")
-                        putExtra("about", getString(R.string.body_about_talipuk))
+                        putExtra("expired", "1 sampai 4 Hari")
+                        putExtra("about", getString(R.string.body_about_gagodoh))
                         putExtra("temperature", "20°C sampai 4°C")
                     }
                     "Lam" -> {
                         putExtra("className", "Lam")
-                        putExtra("expired", "2 sampai 7 Hari")
-                        putExtra("about", getString(R.string.body_about_talipuk))
+                        putExtra("expired", "1 sampai 4 Hari")
+                        putExtra("about", getString(R.string.body_about_lam))
                         putExtra("temperature", "20°C sampai 4°C")
                     }
                     "Hintalu Karuang" -> {
                         putExtra("className", "Hintalu Karuang")
-                        putExtra("expired", "2 sampai 7 Hari")
-                        putExtra("about", getString(R.string.body_about_talipuk))
+                        putExtra("expired", "1 sampai 4 Hari")
+                        putExtra("about", getString(R.string.body_about_hintalu_karuang))
                         putExtra("temperature", "20°C sampai 4°C")
                     }
                     "Ilat Sapi" -> {
                         putExtra("className", "Ilat Sapi")
-                        putExtra("expired", "2 sampai 7 Hari")
-                        putExtra("about", getString(R.string.body_about_talipuk))
+                        putExtra("expired", "1 sampai 4 Hari")
+                        putExtra("about", getString(R.string.body_about_ilat_sapi))
                         putExtra("temperature", "20°C sampai 4°C")
                     }
                     "Dadar Gunting" -> {
-                        putExtra("className", "Dadar Guting")
-                        putExtra("expired", "2 sampai 7 Hari")
-                        putExtra("about", getString(R.string.body_about_talipuk))
+                        putExtra("className", "Dadar Gunting")
+                        putExtra("expired", "1 sampai 4 Hari")
+                        putExtra("about", getString(R.string.body_about_bubur_gunting))
                         putExtra("temperature", "20°C sampai 4°C")
                     }
                     "Pais" -> {
                         putExtra("className", "Pais")
-                        putExtra("expired", "2 sampai 7 Hari")
-                        putExtra("about", getString(R.string.body_about_talipuk))
+                        putExtra("expired", "1 sampai 4 Hari")
+                        putExtra("about", getString(R.string.body_about_pais))
                         putExtra("temperature", "20°C sampai 4°C")
                     }
                     "Babongko" -> {
                         putExtra("className", "Babongko")
-                        putExtra("expired", "2 sampai 7 Hari")
-                        putExtra("about", getString(R.string.body_about_talipuk))
+                        putExtra("expired", "1 sampai 4 Hari")
+                        putExtra("about", getString(R.string.body_about_babongko))
                         putExtra("temperature", "20°C sampai 4°C")
                     }
                     "Bubur Gunting" -> {
                         putExtra("className","Bubur Gunting")
-                        putExtra("expired", "2 sampai 7 Hari")
-                        putExtra("about", getString(R.string.body_about_talipuk))
+                        putExtra("expired", "1 sampai 4 Hari")
+                        putExtra("about", getString(R.string.body_about_bubur_gunting))
                         putExtra("temperature", "20°C sampai 4°C")
                     }
                     "Lempeng" -> {
                         putExtra("className", "Lempeng")
-                        putExtra("expired", "2 sampai 7 Hari")
-                        putExtra("about", getString(R.string.body_about_talipuk))
+                        putExtra("expired", "1 sampai 4 Hari")
+                        putExtra("about", getString(R.string.body_about_lempeng))
                         putExtra("temperature", "20°C sampai 4°C")
                     }
                     "Puteri Selat" -> {
                         putExtra("className", "Puteri Selat")
-                        putExtra("expired", "2 sampai 7 Hari")
-                        putExtra("about", getString(R.string.body_about_talipuk))
+                        putExtra("expired", "1 sampai 4 Hari")
+                        putExtra("about", getString(R.string.body_about_puteri_selat))
                         putExtra("temperature", "20°C sampai 4°C")
                     }
                     "Pundut Nasi" -> {
                         putExtra("className", "Pundut Nasi")
-                        putExtra("expired", "2 sampai 7 Hari")
-                        putExtra("about", getString(R.string.body_about_talipuk))
+                        putExtra("expired", "1 sampai 4 Hari")
+                        putExtra("about", getString(R.string.body_about_pundut_nasi))
                         putExtra("temperature", "20°C sampai 4°C")
                     }
                     else -> {
@@ -266,109 +270,109 @@ class DetectionResultActivity : AppCompatActivity() {
                             putExtra("about", getString(R.string.body_about_talipuk))
                             putExtra("temperature", "20°C sampai 4°C")
                         }
-                        //dari sini komponen label belum diupdate
+
                         "Untuk-Untuk" -> {
                             putExtra("className", "Untuk-Untuk")
-                            putExtra("expired", "2 sampai 7 Hari")
-                            putExtra("about", getString(R.string.body_about_talipuk))
+                            putExtra("expired", "1 sampai 3 Hari")
+                            putExtra("about", getString(R.string.body_about_untuk_untuk))
                             putExtra("temperature", "20°C sampai 4°C")
                         }
 
                         "Lumpur Surga" -> {
                             putExtra("className", "Lumpur Surga")
-                            putExtra("expired", "2 sampai 7 Hari")
-                            putExtra("about", getString(R.string.body_about_talipuk))
+                            putExtra("expired", "1 sampai 3 Hari")
+                            putExtra("about", getString(R.string.body_about_lumpur_surga))
                             putExtra("temperature", "20°C sampai 4°C")
                         }
 
                         "Kukulih" -> {
-                            className = "Kukulih"
-                            expired = "2 sampai 7 Hari"
-                            about = getString(R.string.body_about_talipuk)
-                            temperature = "20°C sampai 4°C"
+                            putExtra("className", "Kukulih")
+                            putExtra("expired", "1 sampai 4 Hari")
+                            putExtra("about", getString(R.string.body_about_kukulih))
+                            putExtra("temperature", "20°C sampai 4°C")
                         }
 
                         "Kikicak" -> {
                             putExtra("className", "Kikicak")
-                            putExtra("expired", "2 sampai 7 Hari")
-                            putExtra("about", "")
+                            putExtra("expired", "1 sampai 4 Hari")
+                            putExtra("about", getString(R.string.body_about_kikicak))
                             putExtra("temperature", "20°C sampai 4°C")
                         }
 
                         "Gagodoh" -> {
                             putExtra("className", "Gagodoh")
-                            putExtra("expired", "2 sampai 7 Hari")
-                            putExtra("about", getString(R.string.body_about_talipuk))
+                            putExtra("expired", "1 sampai 4 Hari")
+                            putExtra("about", getString(R.string.body_about_gagodoh))
                             putExtra("temperature", "20°C sampai 4°C")
                         }
 
                         "Lam" -> {
                             putExtra("className", "Lam")
-                            putExtra("expired", "2 sampai 7 Hari")
-                            putExtra("about", getString(R.string.body_about_talipuk))
+                            putExtra("expired", "1 sampai 4 Hari")
+                            putExtra("about", getString(R.string.body_about_lam))
                             putExtra("temperature", "20°C sampai 4°C")
                         }
 
                         "Hintalu Karuang" -> {
                             putExtra("className", "Hintalu Karuang")
-                            putExtra("expired", "2 sampai 7 Hari")
-                            putExtra("about", getString(R.string.body_about_talipuk))
+                            putExtra("expired", "1 sampai 4 Hari")
+                            putExtra("about", getString(R.string.body_about_hintalu_karuang))
                             putExtra("temperature", "20°C sampai 4°C")
                         }
 
                         "Ilat Sapi" -> {
                             putExtra("className", "Ilat Sapi")
-                            putExtra("expired", "2 sampai 7 Hari")
-                            putExtra("about", getString(R.string.body_about_talipuk))
+                            putExtra("expired", "1 sampai 4 Hari")
+                            putExtra("about", getString(R.string.body_about_ilat_sapi))
                             putExtra("temperature", "20°C sampai 4°C")
                         }
 
                         "Dadar Gunting" -> {
-                            putExtra("className", "Dadar Guting")
-                            putExtra("expired", "2 sampai 7 Hari")
-                            putExtra("about", getString(R.string.body_about_talipuk))
+                            putExtra("className", "Dadar Gunting")
+                            putExtra("expired", "1 sampai 4 Hari")
+                            putExtra("about", getString(R.string.body_about_dadar_gunting))
                             putExtra("temperature", "20°C sampai 4°C")
                         }
 
                         "Pais" -> {
                             putExtra("className", "Pais")
-                            putExtra("expired", "2 sampai 7 Hari")
-                            putExtra("about", getString(R.string.body_about_talipuk))
+                            putExtra("expired", "1 sampai 4 Hari")
+                            putExtra("about", getString(R.string.body_about_pais))
                             putExtra("temperature", "20°C sampai 4°C")
                         }
 
                         "Babongko" -> {
                             putExtra("className", "Babongko")
-                            putExtra("expired", "2 sampai 7 Hari")
-                            putExtra("about", getString(R.string.body_about_talipuk))
+                            putExtra("expired", "1 sampai 4 Hari")
+                            putExtra("about", getString(R.string.body_about_babongko))
                             putExtra("temperature", "20°C sampai 4°C")
                         }
 
                         "Bubur Gunting" -> {
                             putExtra("className","Bubur Gunting")
-                            putExtra("expired", "2 sampai 7 Hari")
-                            putExtra("about", getString(R.string.body_about_talipuk))
+                            putExtra("expired", "1 sampai 4 Hari")
+                            putExtra("about", getString(R.string.body_about_bubur_gunting))
                             putExtra("temperature", "20°C sampai 4°C")
                         }
 
                         "Lempeng" -> {
                             putExtra("className", "Lempeng")
-                            putExtra("expired", "2 sampai 7 Hari")
-                            putExtra("about", getString(R.string.body_about_talipuk))
+                            putExtra("expired", "1 sampai 4 Hari")
+                            putExtra("about", getString(R.string.body_about_lempeng))
                             putExtra("temperature", "20°C sampai 4°C")
                         }
 
                         "Puteri Selat" -> {
                             putExtra("className", "Puteri Selat")
-                            putExtra("expired", "2 sampai 7 Hari")
-                            putExtra("about", getString(R.string.body_about_talipuk))
+                            putExtra("expired", "1 sampai 4 Hari")
+                            putExtra("about", getString(R.string.body_about_puteri_selat))
                             putExtra("temperature", "20°C sampai 4°C")
                         }
 
                         "Pundut Nasi" -> {
                             putExtra("className", "Pundut Nasi")
-                            putExtra("expired", "2 sampai 7 Hari")
-                            putExtra("about", getString(R.string.body_about_talipuk))
+                            putExtra("expired", "1 sampai 4 Hari")
+                            putExtra("about", getString(R.string.body_about_pundut_nasi))
                             putExtra("temperature", "20°C sampai 4°C")
                         }
                     }

@@ -25,9 +25,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var imageSize = 256
     private var className = ""
-    private var expired = ""
-    private var about = ""
-    private var temperature = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -35,8 +32,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupWindowInsets()
 
-        window.navigationBarColor = resources.getColor(R.color.blue)
-        window.statusBarColor = resources.getColor(R.color.blue)
+        window.navigationBarColor = resources.getColor(R.color.md_theme_primaryContainer)
+        window.statusBarColor = resources.getColor(R.color.md_theme_primaryContainer)
 
         binding.btnCamera.setOnClickListener {
             checkCameraPermission()
@@ -150,14 +147,14 @@ class MainActivity : AppCompatActivity() {
         val detectedClassName = classes[maxPos]
         val similarItems: MutableList<String> = ArrayList()
         val similarConfidences: MutableList<Float> = ArrayList()
-        val threshold = 0.01
+        val threshold = 0.1
         val thresholdPercent = (threshold * 100).toInt()
 
         for (i in confidences.indices) {
             val confidenceValue = confidences[i]
             val confidencePercent = (confidenceValue * 100).toInt()
             Log.d("Filtering", "Confidence value (percent): $confidencePercent, Threshold (percent): $thresholdPercent")
-            if (confidences[i] >= threshold - 1e-6) {
+            if (confidences[i] >= threshold) {
                 similarItems.add(classes[i])
                 similarConfidences.add(confidences[i])
             }
@@ -196,180 +193,31 @@ class MainActivity : AppCompatActivity() {
     }
     private fun classifyImage(name: String) {
         return when (name) {
-            "Amparan Tatak" -> {
-                className = "Amparan Tatak"
-                expired = "1 Hari"
-                about = getString(R.string.body_about_amparan_tatak)
-                temperature = "20°C"
-            }
-
-            "Bingka" -> {
-                className = "Bingka"
-                expired = "2 sampai 4 Hari"
-                about = getString(R.string.body_about_bingka)
-                temperature = "20°C sampai 4°C"
-            }
-
-            "Bingka Barandam" -> {
-                className = "Bingka Barandam"
-                expired = "2 sampai 4 Hari"
-                about = getString(R.string.body_about_bingka_berandam)
-                temperature = "20°C sampai 4°C"
-            }
-
-            "Hula Hula" -> {
-                className = "Hula Hula"
-                expired = "3 sampai 5 Hari"
-                about = ""
-                temperature = "20°C sampai 4°C"
-            }
-
-            "Ipau" -> {
-                className = "Ipau"
-                expired = "1 sampai 3 Hari"
-                about = getString(R.string.body_about_ipau)
-                temperature = "20°C sampai 4°C"
-            }
-
-            "Kararaban" -> {
-                className = "Kararaban"
-                expired = "1 sampai 3 Hari"
-                about = getString(R.string.body_about_ipau)
-                temperature = "20°C sampai 4°C"
-            }
-
-            "Lapis India" -> {
-                className = "Lapis India"
-                expired = "3 sampai 7 Hari"
-                about = getString(R.string.body_about_lapis_india)
-                temperature = "20°C sampai 4°C"
-            }
-
-            "Sarimuka" -> {
-                className = "Sarimuka"
-                expired = "2 sampai 7 Hari"
-                about = getString(R.string.body_about_sarimuka)
-                temperature = "20°C sampai 4°C"
-            }
-
-            "Talipuk" -> {
-                className = "Talipuk"
-                expired = "2 sampai 7 Hari"
-                about = getString(R.string.body_about_talipuk)
-                temperature = "20°C sampai 4°C"
-            }
-            //dari sini komponen label belum diupdate
-            "Untuk-Untuk" -> {
-                className = "Untuk-Untuk"
-                expired = "2 sampai 7 Hari"
-                about = getString(R.string.body_about_talipuk)
-                temperature = "20°C sampai 4°C"
-            }
-
-            "Lumpur Surga" -> {
-                className = "Lumpur Surga"
-                expired = "2 sampai 7 Hari"
-                about = getString(R.string.body_about_talipuk)
-                temperature = "20°C sampai 4°C"
-            }
-
-            "Kukulih" -> {
-                className = "Kukulih"
-                expired = "2 sampai 7 Hari"
-                about = getString(R.string.body_about_talipuk)
-                temperature = "20°C sampai 4°C"
-            }
-
-            "Kikicak" -> {
-                className = "Kikicak"
-                expired = "2 sampai 7 Hari"
-                about = getString(R.string.body_about_talipuk)
-                temperature = "20°C sampai 4°C"
-            }
-
-            "Gagodoh" -> {
-                className = "Gagodoh"
-                expired = "2 sampai 7 Hari"
-                about = getString(R.string.body_about_talipuk)
-                temperature = "20°C sampai 4°C"
-            }
-
-            "Lam" -> {
-                className = "Lam"
-                expired = "2 sampai 7 Hari"
-                about = getString(R.string.body_about_talipuk)
-                temperature = "20°C sampai 4°C"
-            }
-
-            "Hintalu Karuang" -> {
-                className = "Hintalu Karuang"
-                expired = "2 sampai 7 Hari"
-                about = getString(R.string.body_about_talipuk)
-                temperature = "20°C sampai 4°C"
-            }
-
-            "Ilat Sapi" -> {
-                className = "Ilat Sapi"
-                expired = "2 sampai 7 Hari"
-                about = getString(R.string.body_about_talipuk)
-                temperature = "20°C sampai 4°C"
-            }
-
-            "Dadar Gunting" -> {
-                className = "Dadar Guting"
-                expired = "2 sampai 7 Hari"
-                about = getString(R.string.body_about_talipuk)
-                temperature = "20°C sampai 4°C"
-            }
-
-            "Pais" -> {
-                className = "Pais"
-                expired = "2 sampai 7 Hari"
-                about = getString(R.string.body_about_talipuk)
-                temperature = "20°C sampai 4°C"
-            }
-
-            "Babongko" -> {
-                className = "Babongko"
-                expired = "2 sampai 7 Hari"
-                about = getString(R.string.body_about_talipuk)
-                temperature = "20°C sampai 4°C"
-            }
-
-            "Bubur Gunting" -> {
-                className = "Bubur Gunting"
-                expired = "2 sampai 7 Hari"
-                about = getString(R.string.body_about_talipuk)
-                temperature = "20°C sampai 4°C"
-            }
-
-            "Lempeng" -> {
-                className = "Lempeng"
-                expired = "2 sampai 7 Hari"
-                about = getString(R.string.body_about_talipuk)
-                temperature = "20°C sampai 4°C"
-            }
-
-            "Puteri Selat" -> {
-                className = "Puteri Selat"
-                expired = "2 sampai 7 Hari"
-                about = getString(R.string.body_about_talipuk)
-                temperature = "20°C sampai 4°C"
-            }
-
-            "Pundut Nasi" -> {
-                className = "Pundut Nasi"
-                expired = "2 sampai 7 Hari"
-                about = getString(R.string.body_about_talipuk)
-                temperature = "20°C sampai 4°C"
-            }
-
-            else -> {
-                className = ""
-                expired = ""
-                about = ""
-                temperature = ""
-            }
+            "Amparan Tatak" -> className = "Amparan Tatak"
+            "Bingka" -> className = "Bingka"
+            "Bingka Barandam" -> className = "Bingka Barandam"
+            "Hula Hula" -> className = "Hula Hula"
+            "Ipau" -> className = "Ipau"
+            "Kararaban" -> className = "Kararaban"
+            "Lapis India" -> className = "Lapis India"
+            "Sarimuka" -> className = "Sarimuka"
+            "Talipuk" -> className = "Talipuk"
+            "Untuk-Untuk" -> className = "Untuk-Untuk"
+            "Lumpur Surga" -> className = "Lumpur Surga"
+            "Kukulih" -> className = "Kukulih"
+            "Kikicak" -> className = "Kikicak"
+            "Gagodoh" -> className = "Gagodoh"
+            "Lam" -> className = "Lam"
+            "Hintalu Karuang" -> className = "Hintalu Karuang"
+            "Ilat Sapi" -> className = "Ilat Sapi"
+            "Dadar Gunting" -> className = "Dadar Gunting"
+            "Pais" -> className = "Pais"
+            "Babongko" -> className = "Babongko"
+            "Bubur Gunting" -> className = "Bubur Gunting"
+            "Lempeng" -> className = "Lempeng"
+            "Puteri Selat" -> className = "Puteri Selat"
+            "Pundut Nasi" -> className = "Pundut Nasi"
+            else -> className = ""
         }
     }
 

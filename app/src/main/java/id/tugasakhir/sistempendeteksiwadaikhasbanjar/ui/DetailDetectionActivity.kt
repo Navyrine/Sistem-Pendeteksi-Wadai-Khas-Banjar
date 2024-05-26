@@ -33,8 +33,8 @@ class DetailDetectionActivity : AppCompatActivity() {
         setContentView(binding.root)
         setWindowsInsets()
 
-        window.navigationBarColor = resources.getColor(R.color.blue)
-        window.statusBarColor = resources.getColor(R.color.blue)
+        window.navigationBarColor = resources.getColor(R.color.md_theme_primaryContainer)
+        window.statusBarColor = resources.getColor(R.color.md_theme_primaryContainer)
         binding.bvResultName.setBlur(this, binding.bvResultName, 100)
 
         val getImageBitmap: Bitmap? = intent.getParcelableExtra("imageBitmap")
@@ -67,6 +67,21 @@ class DetailDetectionActivity : AppCompatActivity() {
             "Lapis India" -> addWadaiLapisIndia()
             "Sarimuka" -> addWadaiSarimuka()
             "Talipuk" -> addWadaiTalipuk()
+            "Untuk-Untuk" -> addWadaiUntukUntuk()
+            "Lumpur Surga" -> addWadaiLumpurSurga()
+            "Kukulih" -> addWadaiKukulih()
+            "Kikicak" -> addWadaiKikicak()
+            "Gagodoh" -> addWadaiGagodoh()
+            "Lam" -> addWadaiLam()
+            "Hintalu Karuang" -> addWadaiHintaluKaruang()
+            "Ilat Sapi" -> addWadaiIlatSapi()
+            "Dadar Gunting" -> addWadaiDadarGunting()
+            "Pais" -> addWadaiPais()
+            "Babongko" -> addWadaiBabongko()
+            "Bubur Gunting" -> addWadaiBuburGunting()
+            "Lempeng" -> addWadaiLempeng()
+            "Puteri Selat" -> addWadaiPuteriSelat()
+            "Pundut Nasi" -> addWadaiPundutNasi()
         }
 
         adapter = WadaiImageAdapter(wadaiImageList)
@@ -184,5 +199,126 @@ class DetailDetectionActivity : AppCompatActivity() {
         wadaiImageList.add(WadaiImage(R.drawable.talipuk3))
         wadaiImageList.add(WadaiImage(R.drawable.talipuk4))
         wadaiImageList.add(WadaiImage(R.drawable.talipuk5))
+    }
+
+    private fun addWadaiUntukUntuk()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.untuk_untuk1))
+        wadaiImageList.add(WadaiImage(R.drawable.untuk_untuk2))
+        wadaiImageList.add(WadaiImage(R.drawable.untuk_untuk3))
+        wadaiImageList.add(WadaiImage(R.drawable.untuk_untuk4))
+        wadaiImageList.add(WadaiImage(R.drawable.untuk_untuk5))
+    }
+    private fun addWadaiLumpurSurga()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.lumpur_surga1))
+        wadaiImageList.add(WadaiImage(R.drawable.lumpur_surga2))
+        wadaiImageList.add(WadaiImage(R.drawable.lumpur_surga3))
+        wadaiImageList.add(WadaiImage(R.drawable.lumpur_surga4))
+        wadaiImageList.add(WadaiImage(R.drawable.lumpur_surga5))
+    }
+    private fun addWadaiKukulih()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.kukulih1))
+        wadaiImageList.add(WadaiImage(R.drawable.kukulih2))
+        wadaiImageList.add(WadaiImage(R.drawable.kukulih3))
+        wadaiImageList.add(WadaiImage(R.drawable.kukulih4))
+        wadaiImageList.add(WadaiImage(R.drawable.kukulih5))
+    }
+    private fun addWadaiKikicak()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.kikicak1))
+        wadaiImageList.add(WadaiImage(R.drawable.kikicak2))
+        wadaiImageList.add(WadaiImage(R.drawable.kikicak3))
+        wadaiImageList.add(WadaiImage(R.drawable.kikicak4))
+        wadaiImageList.add(WadaiImage(R.drawable.kikicak5))
+    }
+    private fun addWadaiGagodoh()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.gagodoh1))
+        wadaiImageList.add(WadaiImage(R.drawable.gagodoh2))
+        wadaiImageList.add(WadaiImage(R.drawable.gagodoh3))
+        wadaiImageList.add(WadaiImage(R.drawable.gagodoh4))
+        wadaiImageList.add(WadaiImage(R.drawable.gagodoh5))
+    }
+    private fun addWadaiLam()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.lam1))
+        wadaiImageList.add(WadaiImage(R.drawable.lam2))
+        wadaiImageList.add(WadaiImage(R.drawable.lam3))
+        wadaiImageList.add(WadaiImage(R.drawable.lam4))
+        wadaiImageList.add(WadaiImage(R.drawable.lam5))
+    }
+    private fun addWadaiHintaluKaruang()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.hintalu_karuang1))
+        wadaiImageList.add(WadaiImage(R.drawable.hintalu_karuang2))
+        wadaiImageList.add(WadaiImage(R.drawable.hintalu_karuang3))
+        wadaiImageList.add(WadaiImage(R.drawable.hintalu_karuang4))
+        wadaiImageList.add(WadaiImage(R.drawable.hintalu_karuang5))
+    }
+    private fun addWadaiIlatSapi()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.ilat_sapi1))
+        wadaiImageList.add(WadaiImage(R.drawable.ilat_sapi2))
+        wadaiImageList.add(WadaiImage(R.drawable.ilat_sapi3))
+        wadaiImageList.add(WadaiImage(R.drawable.ilat_sapi4))
+        wadaiImageList.add(WadaiImage(R.drawable.ilat_sapi5))
+    }
+    private fun addWadaiDadarGunting()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.dadar_gunting1))
+        wadaiImageList.add(WadaiImage(R.drawable.dadar_gunting2))
+        wadaiImageList.add(WadaiImage(R.drawable.dadar_gunting3))
+        wadaiImageList.add(WadaiImage(R.drawable.dadar_gunting4))
+        wadaiImageList.add(WadaiImage(R.drawable.dadar_gunting5))
+    }
+    private fun addWadaiPais()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.pais1))
+        wadaiImageList.add(WadaiImage(R.drawable.pais2))
+        wadaiImageList.add(WadaiImage(R.drawable.pais3))
+        wadaiImageList.add(WadaiImage(R.drawable.pais4))
+        wadaiImageList.add(WadaiImage(R.drawable.pais5))
+    }
+    private fun addWadaiBabongko()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.babongko1))
+        wadaiImageList.add(WadaiImage(R.drawable.babongko2))
+        wadaiImageList.add(WadaiImage(R.drawable.babongko3))
+        wadaiImageList.add(WadaiImage(R.drawable.babongko4))
+        wadaiImageList.add(WadaiImage(R.drawable.babongko5))
+    }
+    private fun addWadaiBuburGunting()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.bubur_gunting1))
+        wadaiImageList.add(WadaiImage(R.drawable.bubur_gunting2))
+        wadaiImageList.add(WadaiImage(R.drawable.bubur_gunting3))
+        wadaiImageList.add(WadaiImage(R.drawable.bubur_gunting4))
+        wadaiImageList.add(WadaiImage(R.drawable.bubur_gunting5))
+    }
+    private fun addWadaiLempeng()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.lempeng1))
+        wadaiImageList.add(WadaiImage(R.drawable.lempeng2))
+        wadaiImageList.add(WadaiImage(R.drawable.lempeng3))
+        wadaiImageList.add(WadaiImage(R.drawable.lempeng4))
+        wadaiImageList.add(WadaiImage(R.drawable.lempeng5))
+    }
+    private fun addWadaiPuteriSelat()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.putri_selat1))
+        wadaiImageList.add(WadaiImage(R.drawable.putri_selat2))
+        wadaiImageList.add(WadaiImage(R.drawable.putri_selat3))
+        wadaiImageList.add(WadaiImage(R.drawable.putri_selat4))
+        wadaiImageList.add(WadaiImage(R.drawable.putri_selat5))
+    }
+    private fun addWadaiPundutNasi()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.pundut_nasi1))
+        wadaiImageList.add(WadaiImage(R.drawable.pundut_nasi2))
+        wadaiImageList.add(WadaiImage(R.drawable.pundut_nasi3))
+        wadaiImageList.add(WadaiImage(R.drawable.pundut_nasi4))
+        wadaiImageList.add(WadaiImage(R.drawable.pundut_nasi5))
     }
 }
