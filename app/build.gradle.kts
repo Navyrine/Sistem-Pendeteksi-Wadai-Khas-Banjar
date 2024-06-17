@@ -31,6 +31,7 @@ android {
     buildFeatures {
         viewBinding = true
         mlModelBinding = true
+        buildConfig = true
     }
 
     compileOptions {
@@ -58,5 +59,14 @@ dependencies {
     implementation(libs.tensorflow.lite.support)
     implementation(libs.tensorflow.lite.metadata)
     implementation(libs.fk.blur.view.android)
+    implementation(libs.lottie)
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.androidx.camera.view)
     implementation(libs.glide)
+    implementation(libs.camera.core)
+    implementation(libs.camera.extensions)
+    implementation(libs.ucrop)
+    implementation (libs.androidx.lifecycle.viewmodel.ktx)
+    implementation (libs.androidx.lifecycle.livedata.ktx)
 }

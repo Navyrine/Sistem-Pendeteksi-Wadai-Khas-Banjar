@@ -31,7 +31,7 @@ class DetectionResultActivity : AppCompatActivity() {
         binding.bvResultName.setBlur(this, binding.bvResultName, 100)
 
         val getImageBitmap: Bitmap? = intent.getParcelableExtra("imageBitmap")
-        val getClassName = intent.getStringExtra("className")
+        val getClassName = intent.getStringExtra("detectedClassName")
         val similarItems = intent.getStringArrayListExtra("similarItems") ?: arrayListOf()
         val confidences = intent.getFloatArrayExtra("confidences") ?: floatArrayOf()
 
@@ -40,7 +40,6 @@ class DetectionResultActivity : AppCompatActivity() {
         binding.ibBack.setOnClickListener {
             val intent = Intent(this@DetectionResultActivity, MainActivity::class.java)
             Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
             startActivity(intent)
         }
         binding.ivResultImage.setOnClickListener {

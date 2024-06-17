@@ -157,4 +157,5 @@
     <string name="title_galeri">Galeri</string>
     <string name="detection_result">Hasil Deteksi</string>
     <string name="confidence">0%</string>
+    <string name="similar_item">Wadai yang mirip</string>
 </resources>
