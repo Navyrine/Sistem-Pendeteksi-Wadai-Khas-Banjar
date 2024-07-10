@@ -1,12 +1,7 @@
 package id.tugasakhir.sistempendeteksiwadaikhasbanjar.ui
 
-import android.app.Dialog
 import android.graphics.Bitmap
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.ViewGroup
-import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -69,9 +64,10 @@ class DetailDetectionActivity : AppCompatActivity() {
             "Talipuk" -> addWadaiTalipuk()
             "Untuk-Untuk" -> addWadaiUntukUntuk()
             "Lumpur Surga" -> addWadaiLumpurSurga()
-            "Kukulih" -> addWadaiKukulih()
+            "Kokoleh" -> addWadaiKokoleh()
             "Kikicak" -> addWadaiKikicak()
             "Gagodoh" -> addWadaiGagodoh()
+            "Kararaban" -> addWadaiKararaban()
             "Lam" -> addWadaiLam()
             "Hintalu Karuang" -> addWadaiHintaluKaruang()
             "Ilat Sapi" -> addWadaiIlatSapi()
@@ -87,6 +83,8 @@ class DetailDetectionActivity : AppCompatActivity() {
         adapter = WadaiImageAdapter(wadaiImageList)
         recyclerView.adapter = adapter
     }
+
+
     private fun setWindowsInsets()
     {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.detail_detection_activity)) { v, insets ->
@@ -115,26 +113,8 @@ class DetailDetectionActivity : AppCompatActivity() {
 
         init(className)
 
-        if (className == "Ipau") {
-            showAlertDialog()
-
-        }
-
     }
-    private fun showAlertDialog()
-    {
-        val dialog = Dialog(this)
-        dialog.setContentView(R.layout.custom_dialog)
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        dialog.setCancelable(false)
 
-        val btnOk = dialog.findViewById<Button>(R.id.btn_ok_alert)
-        btnOk.setOnClickListener {
-            dialog.dismiss()
-        }
-        dialog.show()
-    }
 
     private fun addWadaiIpau()
     {
@@ -217,7 +197,7 @@ class DetailDetectionActivity : AppCompatActivity() {
         wadaiImageList.add(WadaiImage(R.drawable.lumpur_surga4))
         wadaiImageList.add(WadaiImage(R.drawable.lumpur_surga5))
     }
-    private fun addWadaiKukulih()
+    private fun addWadaiKokoleh()
     {
         wadaiImageList.add(WadaiImage(R.drawable.kukulih1))
         wadaiImageList.add(WadaiImage(R.drawable.kukulih2))
@@ -320,5 +300,14 @@ class DetailDetectionActivity : AppCompatActivity() {
         wadaiImageList.add(WadaiImage(R.drawable.pundut_nasi3))
         wadaiImageList.add(WadaiImage(R.drawable.pundut_nasi4))
         wadaiImageList.add(WadaiImage(R.drawable.pundut_nasi5))
+    }
+
+    private fun addWadaiKararaban()
+    {
+        wadaiImageList.add(WadaiImage(R.drawable.kakaraban1))
+        wadaiImageList.add(WadaiImage(R.drawable.kakaraban2))
+        wadaiImageList.add(WadaiImage(R.drawable.kakaraban3))
+        wadaiImageList.add(WadaiImage(R.drawable.kakaraban4))
+        wadaiImageList.add(WadaiImage(R.drawable.kakaraban5))
     }
 }

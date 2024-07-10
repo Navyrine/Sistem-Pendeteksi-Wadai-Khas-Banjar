@@ -1,8 +1,13 @@
 package id.tugasakhir.sistempendeteksiwadaikhasbanjar.ui
 
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.ViewGroup
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -48,9 +53,9 @@ class DetectionResultActivity : AppCompatActivity() {
                 putExtra("imageBitmap", getImageBitmap)
                 when (getClassName) {
                     "Amparan Tatak" -> {
-                        putExtra("expired", "1 Hari")
+                        putExtra("expired", "2 sampai 4 Hari")
                         putExtra("about", getString(R.string.body_about_amparan_tatak))
-                        putExtra("temperature", "20°C")
+                        putExtra("temperature", "20°C sampai 4°C")
                     }
                     "Bingka" -> {
                         putExtra("className", "Bingka")
@@ -67,7 +72,7 @@ class DetectionResultActivity : AppCompatActivity() {
                     "Hula Hula" -> {
                         putExtra("className", "Hula Hula")
                         putExtra("expired", "3 sampai 5 Hari")
-                        putExtra("about", "")
+                        putExtra("about", getString(R.string.body_about_hula_hula))
                         putExtra("temperature", "20°C sampai 4°C")
                     }
                     "Ipau" -> {
@@ -79,7 +84,7 @@ class DetectionResultActivity : AppCompatActivity() {
                     "Kararaban" -> {
                         putExtra("className","Kararaban")
                         putExtra("expired", "1 sampai 3 Hari")
-                        putExtra("about", getString(R.string.body_about_ipau))
+                        putExtra("about", getString(R.string.body_about_kararaban))
                         putExtra("temperature", "20°C sampai 4°C")
                     }
                     "Lapis India" -> {
@@ -113,8 +118,8 @@ class DetectionResultActivity : AppCompatActivity() {
                         putExtra("about", getString(R.string.body_about_lumpur_surga))
                         putExtra("temperature", "20°C sampai 4°C")
                     }
-                    "Kukulih" -> {
-                        putExtra("className", "Kukulih")
+                    "Kokoleh" -> {
+                        putExtra("className", "Kokoleh")
                         putExtra("expired", "1 sampai 4 Hari")
                         putExtra("about", getString(R.string.body_about_kukulih))
                         putExtra("temperature", "20°C sampai 4°C")
@@ -231,7 +236,7 @@ class DetectionResultActivity : AppCompatActivity() {
                         "Hula Hula" -> {
                             putExtra("className", "Hula Hula")
                             putExtra("expired", "3 sampai 5 Hari")
-                            putExtra("about", "")
+                            putExtra("about", getString(R.string.body_about_hula_hula))
                             putExtra("temperature", "20°C sampai 4°C")
                         }
 
@@ -245,7 +250,7 @@ class DetectionResultActivity : AppCompatActivity() {
                         "Kararaban" -> {
                             putExtra("className","Kararaban")
                             putExtra("expired", "1 sampai 3 Hari")
-                            putExtra("about", getString(R.string.body_about_ipau))
+                            putExtra("about", getString(R.string.body_about_kararaban))
                             putExtra("temperature", "20°C sampai 4°C")
                         }
 
@@ -284,8 +289,8 @@ class DetectionResultActivity : AppCompatActivity() {
                             putExtra("temperature", "20°C sampai 4°C")
                         }
 
-                        "Kukulih" -> {
-                            putExtra("className", "Kukulih")
+                        "Kokoleh" -> {
+                            putExtra("className", "Kokoleh")
                             putExtra("expired", "1 sampai 4 Hari")
                             putExtra("about", getString(R.string.body_about_kukulih))
                             putExtra("temperature", "20°C sampai 4°C")
@@ -373,6 +378,12 @@ class DetectionResultActivity : AppCompatActivity() {
                             putExtra("expired", "1 sampai 4 Hari")
                             putExtra("about", getString(R.string.body_about_pundut_nasi))
                             putExtra("temperature", "20°C sampai 4°C")
+                        }
+                        else -> {
+                            className = ""
+                            expired = ""
+                            about = ""
+                            temperature = ""
                         }
                     }
                 }

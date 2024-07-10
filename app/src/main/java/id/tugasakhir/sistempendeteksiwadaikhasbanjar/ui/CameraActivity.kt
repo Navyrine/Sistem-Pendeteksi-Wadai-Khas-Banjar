@@ -1,10 +1,13 @@
 package id.tugasakhir.sistempendeteksiwadaikhasbanjar.ui
 
+import android.app.Dialog
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.Matrix
+import android.graphics.drawable.ColorDrawable
 import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
@@ -14,8 +17,10 @@ import android.util.Log
 import android.view.OrientationEventListener
 import android.view.Surface
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -30,10 +35,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.airbnb.lottie.LottieAnimationView
-import id.tugasakhir.sistempendeteksiwadaikhasbanjar.DetectionViewModel
 import id.tugasakhir.sistempendeteksiwadaikhasbanjar.R
 import id.tugasakhir.sistempendeteksiwadaikhasbanjar.databinding.ActivityCameraBinding
 import id.tugasakhir.sistempendeteksiwadaikhasbanjar.utils.FrameOverlayView
+import id.tugasakhir.sistempendeteksiwadaikhasbanjar.viewmodel.DetectionViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
 import kotlin.math.max
@@ -61,25 +66,28 @@ class CameraActivity : AppCompatActivity() {
         binding.ivCaptureImage.setOnClickListener { takePhoto() }
 
         detectionViewModel.processingState.observe(this, Observer { isProcessing ->
-            if (isProcessing)
-            {
+            if (isProcessing) {
                 progressBar.visibility = View.VISIBLE
                 progressBar.playAnimation()
-            }
-            else
-            {
+            } else {
                 progressBar.visibility = View.GONE
                 progressBar.cancelAnimation()
             }
         })
 
         detectionViewModel.classificationResult.observe(this, Observer { result ->
-            result?.let {
+            if (result.detectedClassName == "Bukan Wadai Banjar" || result.detectedClassName == "Bukan Wadai Banjar 1" || result.detectedClassName == "Bukan Wadai Banjar 2")
+            {
+                showAlertDialog()
+                return@Observer
+            }
+            else
+            {
                 startResultActivity(
-                    it.bitmap,
-                    it.detectedClassName,
-                    it.similarItems,
-                    it.confidences
+                    result.bitmap,
+                    result.detectedClassName,
+                    result.similarItems,
+                    result.confidences
                 )
             }
         })
@@ -207,7 +215,11 @@ class CameraActivity : AppCompatActivity() {
         }
     }
 
-    private fun applyBlurEffect(imageUri: Uri, context: Context, frameOverlayView: FrameOverlayView) {
+    private fun applyBlurEffect(
+        imageUri: Uri,
+        context: Context,
+        frameOverlayView: FrameOverlayView
+    ) {
         try {
             val contentResolver = context.contentResolver
             val inputStream = contentResolver.openInputStream(imageUri)
@@ -228,11 +240,13 @@ class CameraActivity : AppCompatActivity() {
                     horizontal = true,
                     vertical = false
                 )
+
                 ExifInterface.ORIENTATION_FLIP_VERTICAL -> flipBitmap(
                     bitmap,
                     horizontal = false,
                     vertical = true
                 )
+
                 else -> bitmap
             }
 
@@ -298,6 +312,21 @@ class CameraActivity : AppCompatActivity() {
         }
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
+    }
+
+    private fun showAlertDialog()
+    {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.custom_dialog)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.setCancelable(false)
+
+        val btnOk = dialog.findViewById<Button>(R.id.btn_ok_alert)
+        btnOk.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     companion object {

@@ -1,14 +1,19 @@
 package id.tugasakhir.sistempendeteksiwadaikhasbanjar.ui
 
 import android.Manifest
+import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
@@ -22,9 +27,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.airbnb.lottie.LottieAnimationView
 import com.yalantis.ucrop.UCrop
-import id.tugasakhir.sistempendeteksiwadaikhasbanjar.DetectionViewModel
 import id.tugasakhir.sistempendeteksiwadaikhasbanjar.R
 import id.tugasakhir.sistempendeteksiwadaikhasbanjar.databinding.ActivityMainBinding
+import id.tugasakhir.sistempendeteksiwadaikhasbanjar.viewmodel.DetectionViewModel
 import java.io.File
 
 @Suppress("DEPRECATION")
@@ -45,15 +50,12 @@ class MainActivity : AppCompatActivity() {
         detectionViewModel = ViewModelProvider(this).get(DetectionViewModel::class.java)
 
         binding.btnCamera.setOnClickListener {
-            if (checkCameraPermission())
-            {
-               startCamera()
-            }
-            else
-            {
-               ActivityCompat.requestPermissions(
-                   this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
-               )
+            if (checkCameraPermission()) {
+                startCamera()
+            } else {
+                ActivityCompat.requestPermissions(
+                    this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
+                )
             }
         }
 
@@ -62,21 +64,30 @@ class MainActivity : AppCompatActivity() {
         }
 
         detectionViewModel.processingState.observe(this, Observer { isProcessing ->
-            if (isProcessing)
-            {
+            if (isProcessing) {
                 progressBar.visibility = View.VISIBLE
                 progressBar.playAnimation()
-            }
-            else
-            {
+            } else {
                 progressBar.visibility = View.GONE
                 progressBar.cancelAnimation()
             }
         })
 
         detectionViewModel.classificationResult.observe(this, Observer { result ->
-            result?.let {
-                startResultActivity(it.bitmap, it.detectedClassName, it.similarItems, it.confidences)
+
+            if (result.detectedClassName == "Bukan Wadai Banjar" || result.detectedClassName == "Bukan Wadai Banjar 1" || result.detectedClassName == "Bukan Wadai Banjar 2")
+            {
+                showAlertDialog()
+                return@Observer
+            }
+            else
+            {
+                startResultActivity(
+                    result.bitmap,
+                    result.detectedClassName,
+                    result.similarItems,
+                    result.confidences
+                )
             }
         })
     }
@@ -87,15 +98,12 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_CODE_PERMISSIONS)
-        {
-            if (checkCameraPermission())
-            {
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (checkCameraPermission()) {
                 startCamera()
-            }
-            else
-            {
-                Toast.makeText(this, "Permission not granted by the user", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Permission not granted by the user", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
@@ -103,22 +111,21 @@ class MainActivity : AppCompatActivity() {
     private fun pickImageFromGallery() {
         launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
+
     private val launcherGallery = registerForActivityResult(
         ActivityResultContracts.PickVisualMedia()
     ) { uri: Uri? ->
-        if (uri != null)
-        {
+        if (uri != null) {
             cropImage(uri)
-        }
-        else
-        {
+        } else {
             Log.d("Photo Picker", "No media selected")
         }
     }
 
     private fun checkCameraPermission() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(
-            baseContext, it) == PackageManager.PERMISSION_GRANTED
+            baseContext, it
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun setupWindowInsets() {
@@ -129,19 +136,32 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun startCamera()
-    {
-        val intent =Intent(this, CameraActivity::class.java)
+    private fun startCamera() {
+        val intent = Intent(this, CameraActivity::class.java)
         startActivity(intent)
     }
 
-    private fun cropImage(sourceUri: Uri)
-    {
+    private fun cropImage(sourceUri: Uri) {
         val destinationUri = Uri.fromFile(File(cacheDir, "croppedImage.jpg"))
         val options = UCrop.Options().apply {
-            setToolbarColor(ContextCompat.getColor(this@MainActivity, R.color.md_theme_primaryContainer))
-            setStatusBarColor(ContextCompat.getColor(this@MainActivity, R.color.md_theme_primaryContainer))
-            setActiveControlsWidgetColor(ContextCompat.getColor(this@MainActivity, R.color.md_theme_primaryContainer))
+            setToolbarColor(
+                ContextCompat.getColor(
+                    this@MainActivity,
+                    R.color.md_theme_primaryContainer
+                )
+            )
+            setStatusBarColor(
+                ContextCompat.getColor(
+                    this@MainActivity,
+                    R.color.md_theme_primaryContainer
+                )
+            )
+            setActiveControlsWidgetColor(
+                ContextCompat.getColor(
+                    this@MainActivity,
+                    R.color.md_theme_primaryContainer
+                )
+            )
             setFreeStyleCropEnabled(true)
             setShowCropGrid(true)
             setShowCropFrame(true)
@@ -151,6 +171,7 @@ class MainActivity : AppCompatActivity() {
 
         cropLauncher.launch(uCrop.getIntent(this))
     }
+
     private val cropLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -182,10 +203,25 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun showAlertDialog()
+    {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.custom_dialog)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.setCancelable(false)
+
+        val btnOk = dialog.findViewById<Button>(R.id.btn_ok_alert)
+        btnOk.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
     companion object {
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS =
-            mutableListOf (
+            mutableListOf(
                 Manifest.permission.CAMERA,
             ).apply {
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
