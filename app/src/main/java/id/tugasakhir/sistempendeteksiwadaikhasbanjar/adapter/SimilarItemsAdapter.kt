@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import id.tugasakhir.sistempendeteksiwadaikhasbanjar.R
 
 class SimilarItemsAdapter(
-    private val items: List<String>,
-    private val confidences: FloatArray,
+    private var items: List<String>,
+    private var confidences: FloatArray,
     private val itemClickListener: (String) -> Unit
 ): RecyclerView.Adapter<SimilarItemsAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
@@ -38,5 +38,15 @@ class SimilarItemsAdapter(
         holder.progressBar.progress = (confidence * 100).toInt()
 
         holder.itemView.setOnClickListener { itemClickListener(item) }
+    }
+
+    fun updateData(newItems: List<String>) {
+        items = newItems
+        notifyDataSetChanged()
+    }
+
+    fun updateConfidences(newConfidences: FloatArray) {
+        confidences = newConfidences
+        notifyDataSetChanged()
     }
 }

@@ -9,6 +9,8 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import id.tugasakhir.sistempendeteksiwadaikhasbanjar.data.ClassificationResult
@@ -16,14 +18,16 @@ import id.tugasakhir.sistempendeteksiwadaikhasbanjar.ml.Model
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
+import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
-class DetectionViewModel(application: Application): AndroidViewModel(application) {
+class DetectionViewModel(application: Application) : AndroidViewModel(application) {
     private val _processingState = MutableLiveData<Boolean>()
     val processingState: LiveData<Boolean> get() = _processingState
 
@@ -31,10 +35,8 @@ class DetectionViewModel(application: Application): AndroidViewModel(application
     val classificationResult: LiveData<ClassificationResult> get() = _classificationResult
     private var imageSize = 256
 
-    private val _message = MutableLiveData<String>()
-    val message: LiveData<String> get() = _message
-
-    val firebaseStorageRef: StorageReference = FirebaseStorage.getInstance().getReference("wadai_gallery")
+    private val firebaseStorageRef: StorageReference = FirebaseStorage.getInstance().getReference("WadaiGallery")
+    private val firebaseDatabaseRef: DatabaseReference = FirebaseDatabase.getInstance().reference.child("ClassificationResult")
 
     fun processCroppedImage(uri: Uri, contentResolver: ContentResolver) {
         _processingState.value = true
@@ -49,6 +51,7 @@ class DetectionViewModel(application: Application): AndroidViewModel(application
                         _classificationResult.value = result
                         _processingState.value = false
                     }
+                    uploadToFirebase(bitmap, result)
                 }
             } catch (e: Exception) {
                 _processingState.postValue(false)
@@ -83,10 +86,33 @@ class DetectionViewModel(application: Application): AndroidViewModel(application
         val confidences = outputFeature0.floatArray
 
         val classes = arrayOf(
-            "Amparan Tatak", "Babongko", "Bingka", "Bingka Barandam", "Bubur Gunting", "Bukan Wadai Banjar ", "Bukan Wadai Banjar 1",
-            "Bukan Wadai Banjar 2", "Dadar Gunting", "Gagodoh", "Hintalu Karuang", "Hula Hula", "Ilat Sapi", "Ipau", "Kararaban",
-            "Kikicak", "Kokoleh", "Lam", "Lapis India",  "Lempeng", "Lumpur Surga", "Pais", "Pundut Nasi", "Puteri Selat", "Sarimuka",
-            "Talipuk", "Untuk-Untuk"
+            "Amparan Tatak",
+            "Babongko",
+            "Bingka",
+            "Bingka Barandam",
+            "Bubur Gunting",
+            "Bukan Wadai Banjar",
+            "Bukan Wadai Banjar 1",
+            "Bukan Wadai Banjar 2",
+            "Dadar Gunting",
+            "Gagodoh",
+            "Hintalu Karuang",
+            "Hula Hula",
+            "Ilat Sapi",
+            "Ipau",
+            "Kararaban",
+            "Kikicak",
+            "Kokoleh",
+            "Lam",
+            "Lapis India",
+            "Lempeng",
+            "Lumpur Surga",
+            "Pais",
+            "Pundut Nasi",
+            "Puteri Selat",
+            "Sarimuka",
+            "Talipuk",
+            "Untuk-Untuk"
         )
 
         var maxPos = 0
@@ -110,14 +136,55 @@ class DetectionViewModel(application: Application): AndroidViewModel(application
         val sortedSimilarItems = similarItemsWithConfidence.map { it.first }
         val sortedSimilarConfidences = similarItemsWithConfidence.map { it.second }.toFloatArray()
 
-        Log.d("DetectionViewModel", "Detected Class: $detectedClassName, Confidence: $maxConfidence")
+        Log.d(
+            "DetectionViewModel",
+            "Detected Class: $detectedClassName, Confidence: $maxConfidence"
+        )
 
         for ((index, item) in sortedSimilarItems.withIndex()) {
-            Log.d("DetectionViewModel", "Similar Item: $item, Confidence: ${sortedSimilarConfidences[index]}")
+            Log.d(
+                "DetectionViewModel",
+                "Similar Item: $item, Confidence: ${sortedSimilarConfidences[index]}"
+            )
         }
 
         model.close()
 
-        return ClassificationResult(bitmap, detectedClassName, sortedSimilarItems, sortedSimilarConfidences)
+        return ClassificationResult(
+            classificationResultId = "",
+            bitmap,
+            detectedClassName,
+            sortedSimilarItems,
+            sortedSimilarConfidences
+        )
+    }
+
+    private suspend fun uploadToFirebase(bitmap: Bitmap, result: ClassificationResult) {
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()
+        val imageRef = firebaseStorageRef.child("${System.currentTimeMillis()}.jpg")
+        val uploadTask = imageRef.putBytes(data)
+
+        try {
+            uploadTask.await()
+            val downloadUrl = imageRef.downloadUrl.await().toString()
+            val classificationResultRef = firebaseDatabaseRef.push()
+            val classificationResultId = classificationResultRef.key
+            val classificationData = mapOf(
+                "classificationResultId" to classificationResultId,
+                "bitmap" to downloadUrl,
+                "detectedClassName" to result.detectedClassName,
+                "similarItems" to result.similarItems,
+                "confidences" to result.confidences.toList()
+            )
+
+            firebaseDatabaseRef.child(classificationResultId ?: "")
+                .setValue(classificationData).await()
+
+            Log.d("UploadData", "Image uploaded")
+        } catch (e: Exception) {
+            Log.d("FailedData", "Failed to upload image and save data to Firebase")
+        }
     }
 }

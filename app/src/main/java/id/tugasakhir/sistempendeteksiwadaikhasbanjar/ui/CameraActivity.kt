@@ -76,13 +76,10 @@ class CameraActivity : AppCompatActivity() {
         })
 
         detectionViewModel.classificationResult.observe(this, Observer { result ->
-            if (result.detectedClassName == "Bukan Wadai Banjar" || result.detectedClassName == "Bukan Wadai Banjar 1" || result.detectedClassName == "Bukan Wadai Banjar 2")
-            {
+            if (result.detectedClassName == "Bukan Wadai Banjar" || result.detectedClassName == "Bukan Wadai Banjar 1" || result.detectedClassName == "Bukan Wadai Banjar 2") {
                 showAlertDialog()
                 return@Observer
-            }
-            else
-            {
+            } else {
                 startResultActivity(
                     result.bitmap,
                     result.detectedClassName,
@@ -314,12 +311,14 @@ class CameraActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun showAlertDialog()
-    {
+    private fun showAlertDialog() {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.custom_dialog)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         dialog.setCancelable(false)
 
         val btnOk = dialog.findViewById<Button>(R.id.btn_ok_alert)

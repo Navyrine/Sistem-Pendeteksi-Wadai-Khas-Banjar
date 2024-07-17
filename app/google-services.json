@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "196077473422",
+    "project_id": "deteksiwadai",
+    "storage_bucket": "deteksiwadai.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:196077473422:android:8ea7624465ee50e8dfc3df",
+        "android_client_info": {
+          "package_name": "id.tugasakhir.sistempendeteksiwadaikhasbanjar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvA1YR83MkaxmF5Z_cYKZMCwW84V6iYgg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

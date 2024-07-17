@@ -1,13 +1,8 @@
 package id.tugasakhir.sistempendeteksiwadaikhasbanjar.ui
 
-import android.app.Dialog
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.ViewGroup
-import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -33,7 +28,6 @@ class DetectionResultActivity : AppCompatActivity() {
 
         window.navigationBarColor = resources.getColor(R.color.md_theme_primaryContainer)
         window.statusBarColor = resources.getColor(R.color.md_theme_primaryContainer)
-        binding.bvResultName.setBlur(this, binding.bvResultName, 100)
 
         val getImageBitmap: Bitmap? = intent.getParcelableExtra("imageBitmap")
         val getClassName = intent.getStringExtra("detectedClassName")
@@ -44,9 +38,10 @@ class DetectionResultActivity : AppCompatActivity() {
         binding.tvResultBodyName.text = getClassName
         binding.ibBack.setOnClickListener {
             val intent = Intent(this@DetectionResultActivity, MainActivity::class.java)
-            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
         }
+
         binding.ivResultImage.setOnClickListener {
             val intent = Intent(this@DetectionResultActivity, DetailDetectionActivity::class.java).apply {
                 putExtra("className", getClassName)
@@ -392,7 +387,6 @@ class DetectionResultActivity : AppCompatActivity() {
         binding.rvDetectionResult.setHasFixedSize(true)
         binding.rvDetectionResult.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         binding.rvDetectionResult.adapter = adapter
-        adapter.notifyDataSetChanged()
     }
 
     private fun setUpWindowInset() {
@@ -402,4 +396,5 @@ class DetectionResultActivity : AppCompatActivity() {
             insets
         }
     }
+
 }

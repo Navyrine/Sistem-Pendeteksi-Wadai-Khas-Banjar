@@ -187,6 +187,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun showAlertDialog()
+    {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.custom_dialog)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.setCancelable(false)
+
+        val btnOk = dialog.findViewById<Button>(R.id.btn_ok_alert)
+        btnOk.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
     private fun startResultActivity(
         imageBitmap: Bitmap,
         detectedClassName: String,
@@ -203,20 +218,6 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun showAlertDialog()
-    {
-        val dialog = Dialog(this)
-        dialog.setContentView(R.layout.custom_dialog)
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        dialog.setCancelable(false)
-
-        val btnOk = dialog.findViewById<Button>(R.id.btn_ok_alert)
-        btnOk.setOnClickListener {
-            dialog.dismiss()
-        }
-        dialog.show()
-    }
 
     companion object {
         private const val REQUEST_CODE_PERMISSIONS = 10
