@@ -14,7 +14,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import id.tugasakhir.sistempendeteksiwadaikhasbanjar.data.ClassificationResult
-import id.tugasakhir.sistempendeteksiwadaikhasbanjar.ml.ModelQuantized
+import id.tugasakhir.sistempendeteksiwadaikhasbanjar.ml.Model
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -60,7 +60,7 @@ class DetectionViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     private fun classificationImage(bitmap: Bitmap): ClassificationResult {
-        val model = ModelQuantized.newInstance(getApplication())
+        val model = Model.newInstance(getApplication())
 
         val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 256, 256, 3), DataType.FLOAT32)
         val byteBuffer = ByteBuffer.allocateDirect(4 * imageSize * imageSize * 3)
