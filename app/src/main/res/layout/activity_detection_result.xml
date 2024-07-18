@@ -41,18 +41,20 @@
             <com.github.furkankaplan.fkblurview.FKBlurView
                 android:id="@+id/bv_resultName"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tv_resultBodyName"
-                android:layout_width="300dp"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/roboto_bold"
-                android:justificationMode="inter_word"
-                android:padding="14dp"
-                android:text="@string/body_name_wadai"
-                android:textColor="@color/md_theme_onPrimaryContainer"
-                android:textSize="24sp" />
+                <TextView
+                    android:id="@+id/tv_resultBodyName"
+                    android:layout_width="300dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/roboto_bold"
+                    android:justificationMode="inter_word"
+                    android:padding="14dp"
+                    android:text="@string/body_name_wadai"
+                    android:textColor="@color/md_theme_onPrimaryContainer"
+                    android:textSize="24sp" />
+            </com.github.furkankaplan.fkblurview.FKBlurView>
+
         </com.google.android.material.card.MaterialCardView>
     </androidx.cardview.widget.CardView>
 

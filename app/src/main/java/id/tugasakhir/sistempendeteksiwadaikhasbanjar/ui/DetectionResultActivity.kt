@@ -28,6 +28,7 @@ class DetectionResultActivity : AppCompatActivity() {
 
         window.navigationBarColor = resources.getColor(R.color.md_theme_primaryContainer)
         window.statusBarColor = resources.getColor(R.color.md_theme_primaryContainer)
+        binding.bvResultName.setBlur(this, binding.bvResultName, 100)
 
         val getImageBitmap: Bitmap? = intent.getParcelableExtra("imageBitmap")
         val getClassName = intent.getStringExtra("detectedClassName")

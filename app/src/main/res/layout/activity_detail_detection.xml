@@ -57,7 +57,7 @@
             <com.github.furkankaplan.fkblurview.FKBlurView
                 android:id="@+id/bv_resultName"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/tv_resultBodyName"
@@ -69,6 +69,8 @@
                     android:text="@string/body_name_wadai"
                     android:textColor="@color/md_theme_onPrimaryContainer"
                     android:textSize="24sp" />
+            </com.github.furkankaplan.fkblurview.FKBlurView>
+
         </com.google.android.material.card.MaterialCardView>
     </androidx.cardview.widget.CardView>
 
